@@ -55,14 +55,15 @@
     <main>
       <!-- Hero Section -->
       <section class="hero-section">
+        <div class="hero-decoration"></div>
         <div class="heading hero centered">
           <a href="https://github.com/EveryInc/every-marketplace/releases" class="eyebrow">
             <i class="fa-solid fa-rocket"></i> Version 2.6.0 released!
           </a>
-          <h1 class="balanced">
+          <h1 class="balanced" style="margin-bottom: 32px;">
             AI-Powered Development Tools That Get Smarter With Every Use
           </h1>
-          <p class="paragraph m secondary balanced">
+          <p class="paragraph m secondary balanced" style="margin-bottom: 32px;">
             Make each unit of engineering work easier than the last. 23 specialized agents, 16 powerful commands,
             11 intelligent skills, and two MCP servers for code review, research, design, and workflow automation.
           </p>
@@ -81,18 +82,22 @@
       <section class="stats-section">
         <div class="stats-container">
           <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-users-gear"></i></div>
             <div class="stat-number">23</div>
             <div class="stat-label">Specialized Agents</div>
           </div>
           <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-terminal"></i></div>
             <div class="stat-number">16</div>
             <div class="stat-label">Slash Commands</div>
           </div>
           <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
             <div class="stat-number">11</div>
             <div class="stat-label">Intelligent Skills</div>
           </div>
           <div class="stat-card">
+            <div class="stat-icon"><i class="fa-solid fa-server"></i></div>
             <div class="stat-number">2</div>
             <div class="stat-label">MCP Servers</div>
           </div>
@@ -102,9 +107,9 @@
       <!-- Philosophy Section -->
       <section id="philosophy" class="philosophy-section">
         <div class="heading centered">
-          <h2 class="no-top-margin">The Compounding Engineering Philosophy</h2>
-          <p class="paragraph l secondary balanced">
-            Every unit of engineering work should make subsequent units of work easier&mdash;not harder.
+          <h2 class="no-top-margin" style="font-size: 42px; margin-bottom: 16px;">The Compounding Engineering Philosophy</h2>
+          <p class="paragraph l secondary balanced" style="font-size: 21px; line-height: 1.6; font-weight: 500;">
+            Every unit of engineering work should make subsequent units of work <em style="color: var(--color-accent); font-style: normal;">easier</em>&mdash;not harder.
           </p>
         </div>
 
@@ -472,24 +477,28 @@
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/workflows:plan</code>
+                <span class="command-type-badge">core</span>
               </div>
               <p class="command-description">Create comprehensive implementation plans with research agents and stakeholder analysis.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/workflows:review</code>
+                <span class="command-type-badge">core</span>
               </div>
               <p class="command-description">Run exhaustive code reviews using 12 or more parallel agents, ultra-thinking, and worktrees.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/workflows:work</code>
+                <span class="command-type-badge">core</span>
               </div>
               <p class="command-description">Execute work items systematically with progress tracking and validation.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/workflows:codify</code>
+                <span class="command-type-badge">core</span>
               </div>
               <p class="command-description">Document solved problems for the knowledge base. Turn learnings into reusable patterns.</p>
             </div>
@@ -503,72 +512,84 @@
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/changelog</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Create engaging changelogs for recent merges.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/create-agent-skill</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Create or edit Claude Code skills with expert guidance.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/generate_command</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Generate new slash commands from templates.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/heal-skill</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Fix skill documentation issues automatically.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/plan_review</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Multi-agent plan review in parallel.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/prime</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Prime/setup command for project initialization.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/report-bug</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Report bugs in the plugin with structured templates.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/reproduce-bug</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Reproduce bugs using logs and console output.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/triage</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Triage and prioritize issues interactively.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/resolve_parallel</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Resolve TODO comments in parallel.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/resolve_pr_parallel</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Resolve PR comments in parallel.</p>
             </div>
             <div class="command-card">
               <div class="command-header">
                 <code class="command-name">/resolve_todo_parallel</code>
+                <span class="command-type-badge">util</span>
               </div>
               <p class="command-description">Resolve file-based todos in parallel.</p>
             </div>
