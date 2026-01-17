@@ -56,7 +56,7 @@ For each destructive step:
 | Step | Command | Estimated Runtime | Batching | Rollback |
 |------|---------|-------------------|----------|----------|
 | 1. Add column | `php artisan migrate` | < 1 min | N/A | Drop column |
-| 2. Backfill data | `php artisan data:backfill` | ~10 min | 1000 rows | Restore from backup |
+| 2. Backfill data | `php artisan app:backfill-status` | ~10 min | 1000 rows | Restore from backup |
 | 3. Enable feature | Set flag | Instant | N/A | Disable flag |
 
 ### 4. Post-Deploy Verification (Within 5 Minutes)

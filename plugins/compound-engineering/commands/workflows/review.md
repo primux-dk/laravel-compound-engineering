@@ -55,17 +55,16 @@ Ensure that the code is ready for analysis (either in worktree or on current bra
 Run ALL or most of these agents at the same time:
 
 1. Task taylor-otwell-reviewer(PR content)
-3. If turbo is used: Task rails-turbo-expert(PR content)
-4. Task git-history-analyzer(PR content)
-5. Task dependency-detective(PR content)
-6. Task pattern-recognition-specialist(PR content)
-7. Task architecture-strategist(PR content)
-8. Task code-philosopher(PR content)
-9. Task security-sentinel(PR content)
-10. Task performance-oracle(PR content)
-11. Task devops-harmony-analyst(PR content)
-12. Task data-integrity-guardian(PR content)
-13. Task agent-native-reviewer(PR content) - Verify new features are agent-accessible
+2. Task git-history-analyzer(PR content)
+3. Task dependency-detective(PR content)
+4. Task pattern-recognition-specialist(PR content)
+5. Task architecture-strategist(PR content)
+6. Task code-philosopher(PR content)
+7. Task security-sentinel(PR content)
+8. Task performance-oracle(PR content)
+9. Task devops-harmony-analyst(PR content)
+10. Task data-integrity-guardian(PR content)
+11. Task agent-native-reviewer(PR content) - Verify new features are agent-accessible
 
 </parallel_tasks>
 
