@@ -158,7 +158,7 @@ When invoked, you should:
 
 ### Step 0: Check for Design Skills in Context
 
-**Design skills like swiss-design, frontend-design, etc. are automatically loaded when invoked by the user.** Check your context for active skill instructions.
+**Design skills etc. are automatically loaded when invoked by the user.** Check your context for active skill instructions.
 
 If the user mentions a design style (Swiss, minimalist, Stripe-like, etc.), look for:
 - Loaded skill instructions in your system context

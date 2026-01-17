@@ -282,7 +282,7 @@ Each plugin has its own plugin.json with detailed metadata:
 3. Test agents and commands:
    ```bash
    claude /review
-   claude agent kieran-rails-reviewer "test message"
+   claude agent taylor-otwell-reviewer "test message"
    ```
 
 ### Validate JSON

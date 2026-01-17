@@ -6,7 +6,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 27 |
+| Agents | 25 |
 | Commands | 20 |
 | Skills | 14 |
 | MCP Servers | 1 |
@@ -15,7 +15,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 Agents are organized into categories for easier discovery.
 
-### Review (14)
+### Review (13)
 
 | Agent | Description |
 |-------|-------------|
@@ -25,8 +25,7 @@ Agents are organized into categories for easier discovery.
 | `data-integrity-guardian` | Database migrations and data integrity |
 | `data-migration-expert` | Validate ID mappings match production, check for swapped values |
 | `deployment-verification-agent` | Create Go/No-Go deployment checklists for risky data changes |
-| `dhh-rails-reviewer` | Rails review from DHH's perspective |
-| `kieran-rails-reviewer` | Rails code review with strict conventions |
+| `taylor-otwell-reviewer` | Laravel review from Taylor Otwell's perspective |
 | `kieran-python-reviewer` | Python code review with strict conventions |
 | `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
 | `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
@@ -56,15 +55,9 @@ Agents are organized into categories for easier discovery.
 | Agent | Description |
 |-------|-------------|
 | `bug-reproduction-validator` | Systematically reproduce and validate bug reports |
-| `lint` | Run linting and code quality checks on Ruby and ERB files |
+| `lint` | Run linting and code quality checks on PHP and Blade files |
 | `pr-comment-resolver` | Address PR comments and implement fixes |
 | `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
-
-### Docs (1)
-
-| Agent | Description |
-|-------|-------------|
-| `ankane-readme-writer` | Create READMEs following Ankane-style template for Ruby gems |
 
 ## Commands
 
@@ -114,7 +107,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `spatie-laravel-package-writer` | Write Laravel packages following Spatie's patterns |
 | `compound-docs` | Capture solved problems as categorized documentation |
 | `create-agent-skills` | Expert guidance for creating Claude Code skills |
-| `dhh-rails-style` | Write Ruby/Rails code in DHH's 37signals style |
+| `taylor-otwell-style` | Write Laravel/PHP code in Taylor Otwell's style |
 | `frontend-design` | Create production-grade frontend interfaces |
 | `skill-creator` | Guide for creating effective Claude Code skills |
 
@@ -179,6 +172,15 @@ agent-browser install  # Downloads Chromium
 ```
 
 The `agent-browser` skill provides comprehensive documentation on usage.
+
+## Requirements
+
+### Optional Tools
+
+| Tool | Purpose | Installation |
+|------|---------|--------------|
+| `ast-grep` | Syntax-aware code pattern matching | `brew install ast-grep` |
+| `agent-browser` | Browser automation | `npm install -g agent-browser` |
 
 ## Installation
 
