@@ -28,7 +28,7 @@ Do not proceed until you have a clear feature description from the user.
 First, I need to understand the project's conventions and existing patterns, leveraging all available resources and use paralel subagents to do this.
 </thinking>
 
-Runn these three agents in paralel at the same time:
+Run these three agents in paralel at the same time:
 
 - Task repo-research-analyst(feature_description)
 - Task best-practices-researcher(feature_description)
@@ -36,7 +36,7 @@ Runn these three agents in paralel at the same time:
 
 **Reference Collection:**
 
-- [ ] Document all research findings with specific file paths (e.g., `app/services/example_service.rb:42`)
+- [ ] Document all research findings with specific file paths (e.g., `app/Actions/Example/ProcessExample.php:42`)
 - [ ] Include URLs to external documentation and best practices guides
 - [ ] Create a reference list of similar issues or PRs (e.g., `#123`, `#456`)
 - [ ] Note any team conventions discovered in `CLAUDE.md` or team documentation
@@ -109,14 +109,17 @@ Select how comprehensive you want the issue to be, simpler is mostly better.
 
 ## MVP
 
-### test.rb
+### Test.php
 
-```ruby
+```php
+<?php
+
 class Test
-  def initialize
-    @name = "test"
-  end
-end
+{
+    public function __construct(
+        private string $name = 'test'
+    ) {}
+}
 ```
 
 ## References
@@ -330,13 +333,12 @@ Apply best practices for clarity and actionability, making the issue easy to sca
 # Good example with syntax highlighting and line references
 
 
-```ruby
-# app/services/user_service.rb:42
-def process_user(user)
-
-# Implementation here
-
-end
+```php
+// app/Actions/User/ProcessUser.php:12
+public function handle(User $user): void
+{
+    // Implementation here
+}
 ```
 
 # Collapsible error logs
