@@ -45,7 +45,7 @@ First, read and parse the plan to identify each major section that can be enhanc
 - [ ] Code examples and file references
 - [ ] Acceptance criteria
 - [ ] Any UI/UX components mentioned
-- [ ] Technologies/frameworks mentioned (Rails, React, Python, TypeScript, etc.)
+- [ ] Technologies/frameworks mentioned (Laravel, Livewire, Alpine.js, Tailwind, Inertia, etc.)
 - [ ] Domain areas (data models, APIs, UI, security, performance, etc.)
 
 **Create a section manifest:**
