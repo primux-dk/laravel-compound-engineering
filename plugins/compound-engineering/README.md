@@ -56,7 +56,6 @@ Agents are organized into categories for easier discovery.
 | Agent | Description |
 |-------|-------------|
 | `bug-reproduction-validator` | Systematically reproduce and validate bug reports |
-| `every-style-editor` | Edit content to conform to Every's style guide |
 | `lint` | Run linting and code quality checks on Ruby and ERB files |
 | `pr-comment-resolver` | Address PR comments and implement fixes |
 | `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
@@ -123,7 +122,6 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Skill | Description |
 |-------|-------------|
-| `every-style-editor` | Review copy for Every's style guide compliance |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |
 
