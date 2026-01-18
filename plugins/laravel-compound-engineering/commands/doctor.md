@@ -1,9 +1,9 @@
 ---
-name: doctor
+name: plugin:doctor
 description: Check plugin requirements and install missing dependencies
 ---
 
-# Doctor Command
+# Plugin Doctor Command
 
 Check if all plugin requirements are installed and offer to install missing dependencies.
 
@@ -70,7 +70,34 @@ else
 fi
 ```
 
-## Step 2: Check Skill-Specific Requirements
+## Step 2: Check MCP Server
+
+Check if the Context7 MCP server is configured in Claude Code settings:
+
+```bash
+echo ""
+echo "=== MCP Server ==="
+echo ""
+
+# Check for Context7 MCP server in settings
+echo -n "Context7 MCP: "
+
+# Look for context7 in various settings locations
+SETTINGS_FOUND=false
+if [ -f ".claude/settings.local.json" ] && grep -q "context7" .claude/settings.local.json 2>/dev/null; then
+  SETTINGS_FOUND=true
+  echo "✓ Configured (project settings)"
+elif [ -f "$HOME/.claude/settings.json" ] && grep -q "context7" "$HOME/.claude/settings.json" 2>/dev/null; then
+  SETTINGS_FOUND=true
+  echo "✓ Configured (global settings)"
+else
+  echo "✗ Not configured"
+  echo "  Add to .claude/settings.local.json or ~/.claude/settings.json:"
+  echo '  {"mcpServers":{"context7":{"type":"http","url":"https://mcp.context7.com/mcp"}}}'
+fi
+```
+
+## Step 3: Check Skill-Specific Requirements
 
 ```bash
 echo ""
@@ -118,7 +145,7 @@ else
 fi
 ```
 
-## Step 3: Check Laravel Project Requirements (if in Laravel project)
+## Step 4: Check Laravel Project Requirements (if in Laravel project)
 
 ```bash
 echo ""
@@ -157,9 +184,28 @@ else
 fi
 ```
 
-## Step 4: Summarize and Offer Installation
+## Step 5: Summarize and Offer Installation
 
 After running the checks, summarize what's missing and ask the user:
+
+**For MCP server configuration:**
+
+If Context7 MCP is not configured, offer to add it. Create/update the settings file:
+
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "type": "http",
+      "url": "https://mcp.context7.com/mcp"
+    }
+  }
+}
+```
+
+This can be added to either:
+- `.claude/settings.local.json` (project-level, recommended)
+- `~/.claude/settings.json` (global)
 
 **For missing global tools, offer to install:**
 
@@ -178,16 +224,19 @@ After running the checks, summarize what's missing and ask the user:
 | PEST | `composer require pestphp/pest --dev --with-all-dependencies` |
 | PHPStan | `composer require phpstan/phpstan --dev` |
 
-## Step 5: Interactive Installation
+## Step 6: Interactive Installation
 
 Use the AskUserQuestion tool to ask which missing dependencies to install. Group them logically:
 
-1. **Browser automation** (agent-browser)
-2. **Image generation** (google-genai, pillow, GEMINI_API_KEY setup)
-3. **Cloud storage** (rclone)
-4. **Laravel development** (Pint, PEST, PHPStan)
+1. **MCP Server** (Context7 configuration)
+2. **Browser automation** (agent-browser)
+3. **Image generation** (google-genai, pillow, GEMINI_API_KEY setup)
+4. **Cloud storage** (rclone)
+5. **Laravel development** (Pint, PEST, PHPStan)
 
 Run the installation commands for selected items.
+
+For Context7 MCP, use the Write tool to create/update `.claude/settings.local.json` with the proper configuration.
 
 ## Output Format
 
@@ -201,6 +250,9 @@ Core Requirements:
   ✓ npm v10.2.4
   ✓ Python 3.12.0
   ✓ pip v24.0
+
+MCP Server:
+  ✓ Context7 MCP - Configured (project settings)
 
 Skill Requirements:
   ✗ agent-browser - Not installed

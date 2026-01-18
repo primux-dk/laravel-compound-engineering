@@ -9,11 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- `/doctor` command - Check plugin requirements and install missing dependencies
+- `/plugin:doctor` command - Check plugin requirements and install missing dependencies
   - Checks core requirements: PHP, Composer, Node.js, npm, Python, pip
+  - Checks Context7 MCP server configuration
   - Checks skill-specific tools: agent-browser, rclone, GEMINI_API_KEY, google-genai, pillow
   - Checks Laravel project tools: Pint, PEST, PHPStan
-  - Offers to install missing dependencies interactively
+  - Offers to configure Context7 MCP and install missing dependencies interactively
 
 ### Summary
 
