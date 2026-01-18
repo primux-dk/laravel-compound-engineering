@@ -17,7 +17,7 @@
         "name": "Primux",
         "url": "https://github.com/primux-dk"
       },
-      "homepage": "https://github.com/primux-dk/laravel-compound-engineering-plugin",
+      "homepage": "https://github.com/primux-dk/laravel-compound-engineering",
       "tags": ["ai-powered", "compound-engineering", "workflow-automation", "code-review", "laravel", "php", "tall-stack"],
       "source": "./plugins/laravel-compound-engineering"
     }
