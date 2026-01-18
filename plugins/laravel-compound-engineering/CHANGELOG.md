@@ -5,6 +5,22 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2026-01-18
+
+### Added
+
+- `/doctor` command - Check plugin requirements and install missing dependencies
+  - Checks core requirements: PHP, Composer, Node.js, npm, Python, pip
+  - Checks skill-specific tools: agent-browser, rclone, GEMINI_API_KEY, google-genai, pillow
+  - Checks Laravel project tools: Pint, PEST, PHPStan
+  - Offers to install missing dependencies interactively
+
+### Summary
+
+- 24 agents, 24 commands, 12 skills, 1 MCP server
+
+---
+
 ## [1.0.0] - 2026-01-18
 
 ### Changed

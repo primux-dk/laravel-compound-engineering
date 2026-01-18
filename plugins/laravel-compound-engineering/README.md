@@ -7,7 +7,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Component | Count |
 |-----------|-------|
 | Agents | 24 |
-| Commands | 23 |
+| Commands | 24 |
 | Skills | 12 |
 | MCP Servers | 1 |
 
@@ -81,6 +81,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `/create-agent-skill` | Create or edit Claude Code skills |
 | `/deepen-plan` | Enhance plans with parallel research agents for each section |
 | `/deploy-docs` | Validate and prepare documentation for GitHub Pages |
+| `/doctor` | Check plugin requirements and install missing dependencies |
 | `/feature-video` | Record video walkthroughs and add to PR description |
 | `/generate_command` | Generate new slash commands |
 | `/heal-skill` | Fix skill documentation issues |
