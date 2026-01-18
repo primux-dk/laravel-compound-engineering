@@ -6,9 +6,9 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 25 |
-| Commands | 20 |
-| Skills | 14 |
+| Agents | 24 |
+| Commands | 23 |
+| Skills | 12 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -50,7 +50,7 @@ Agents are organized into categories for easier discovery.
 | `design-iterator` | Iteratively refine UI through systematic design iterations |
 | `figma-design-sync` | Synchronize web implementations with Figma designs |
 
-### Workflow (5)
+### Workflow (4)
 
 | Agent | Description |
 |-------|-------------|
@@ -76,21 +76,25 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Command | Description |
 |---------|-------------|
-| `/deepen-plan` | Enhance plans with parallel research agents for each section |
+| `/agent-native-audit` | Run comprehensive agent-native architecture review |
 | `/changelog` | Create engaging changelogs for recent merges |
 | `/create-agent-skill` | Create or edit Claude Code skills |
+| `/deepen-plan` | Enhance plans with parallel research agents for each section |
+| `/deploy-docs` | Validate and prepare documentation for GitHub Pages |
+| `/feature-video` | Record video walkthroughs and add to PR description |
 | `/generate_command` | Generate new slash commands |
 | `/heal-skill` | Fix skill documentation issues |
+| `/lfg` | Full autonomous engineering workflow |
 | `/plan_review` | Multi-agent plan review in parallel |
+| `/release-docs` | Build and update the documentation site |
 | `/report-bug` | Report a bug in the plugin |
 | `/reproduce-bug` | Reproduce bugs using logs and console |
 | `/resolve_parallel` | Resolve TODO comments in parallel |
 | `/resolve_pr_parallel` | Resolve PR comments in parallel |
 | `/resolve_todo_parallel` | Resolve todos in parallel |
-| `/triage` | Triage and prioritize issues |
 | `/test-browser` | Run browser tests on PR-affected pages |
+| `/triage` | Triage and prioritize issues |
 | `/xcode-test` | Build and test iOS apps on simulator |
-| `/feature-video` | Record video walkthroughs and add to PR description |
 
 ## Skills
 
