@@ -5,7 +5,7 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [3.0.0] - 2026-01-17
+## [1.0.0] - 2026-01-18
 
 ### Changed
 
@@ -39,7 +39,7 @@ This release converts the plugin from Ruby/Rails to Laravel/PHP.
 
 ### Summary
 
-- 25 agents, 20 commands, 14 skills, 1 MCP server
+- 24 agents, 23 commands, 12 skills, 1 MCP server
 
 ---
 
