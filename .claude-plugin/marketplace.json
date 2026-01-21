@@ -11,7 +11,7 @@
   "plugins": [
     {
       "name": "laravel-compound-engineering",
-      "description": "AI-powered development tools for Laravel and PHP. Make each unit of engineering work easier than the last. Includes 24 agents, 24 commands, and 15 skills.",
+      "description": "AI-powered development tools for Laravel and PHP. Make each unit of engineering work easier than the last. Includes 24 agents, 25 commands, and 16 skills.",
       "version": "1.3.0",
       "author": {
         "name": "Primux",

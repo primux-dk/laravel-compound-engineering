@@ -7,8 +7,8 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Component | Count |
 |-----------|-------|
 | Agents | 24 |
-| Commands | 24 |
-| Skills | 15 |
+| Commands | 25 |
+| Skills | 16 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -67,6 +67,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Command | Description |
 |---------|-------------|
+| `/workflows:brainstorm` | Explore requirements and approaches before planning |
 | `/workflows:plan` | Create implementation plans |
 | `/workflows:review` | Run comprehensive code reviews |
 | `/workflows:work` | Execute work items systematically |
@@ -127,6 +128,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 
 | Skill | Description |
 |-------|-------------|
+| `brainstorming` | Questioning techniques and YAGNI principles for requirements discovery |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |
 

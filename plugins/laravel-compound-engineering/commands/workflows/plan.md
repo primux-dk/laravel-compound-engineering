@@ -20,9 +20,26 @@ Transform feature descriptions, bug reports, or improvement ideas into well-stru
 
 Do not proceed until you have a clear feature description from the user.
 
+### Brainstorm Detection
+
+First, check if a brainstorm document was provided or exists:
+
+```bash
+ls docs/brainstorms/*.md 2>/dev/null | head -5
+```
+
+**If input is a brainstorm file** (e.g., `docs/brainstorms/2026-01-21-feature.md`):
+- Read the brainstorm document
+- Extract: problem, chosen approach, key decisions, scope
+- Skip Idea Refinement - context already captured
+- Proceed directly to Research
+
+**If related brainstorm exists:**
+- Offer: "Found brainstorm `docs/brainstorms/<file>.md`. Use this context?"
+
 ### Idea Refinement
 
-Before running research, refine the idea through collaborative dialogue using the **AskUserQuestion tool**:
+**Skip if brainstorm provided.** Otherwise, refine the idea through collaborative dialogue using the **AskUserQuestion tool**:
 
 - Ask questions one at a time to understand the idea fully
 - Prefer multiple choice questions when natural options exist
@@ -31,6 +48,8 @@ Before running research, refine the idea through collaborative dialogue using th
 
 **Skip option:** If the feature description is already detailed, offer:
 "Your description is clear. Should I proceed with research, or would you like to refine it further?"
+
+**Need more exploration?** Suggest: "This seems complex. Want to run `/workflows:brainstorm` first to explore approaches?"
 
 ## Main Tasks
 
@@ -396,22 +415,22 @@ public function handle(User $user): void
 **Filename:** Use the kebab-case filename from Step 2 Title & Categorization.
 
 ```
-plans/<type>-<descriptive-name>.md
+docs/plans/<type>-<descriptive-name>.md
 ```
 
 Examples:
-- ✅ `plans/feat-user-authentication-flow.md`
-- ✅ `plans/fix-checkout-race-condition.md`
-- ✅ `plans/refactor-api-client-extraction.md`
-- ❌ `plans/plan-1.md` (not descriptive)
-- ❌ `plans/new-feature.md` (too vague)
-- ❌ `plans/feat: user auth.md` (invalid characters)
+- ✅ `docs/plans/feat-user-authentication-flow.md`
+- ✅ `docs/plans/fix-checkout-race-condition.md`
+- ✅ `docs/plans/refactor-api-client-extraction.md`
+- ❌ `docs/plans/plan-1.md` (not descriptive)
+- ❌ `docs/plans/new-feature.md` (too vague)
+- ❌ `docs/plans/feat: user auth.md` (invalid characters)
 
 ## Post-Generation Options
 
 After writing the plan file, use the **AskUserQuestion tool** to present these options:
 
-**Question:** "Plan ready at `plans/<issue_title>.md`. What would you like to do next?"
+**Question:** "Plan ready at `docs/plans/<issue_title>.md`. What would you like to do next?"
 
 **Options:**
 1. **Open plan in editor** - Open the plan file for review

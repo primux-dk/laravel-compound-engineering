@@ -5,9 +5,21 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.3.0] - 2026-01-20
+## [1.3.0] - 2026-01-21
 
 ### Added
+
+- `/workflows:brainstorm` command - Explore WHAT to build before planning HOW
+  - Collaborative discovery through dialogue
+  - Proposes 2-3 approaches with trade-offs
+  - Outputs to `docs/brainstorms/YYYY-MM-DD-<topic>.md`
+  - Integrates with `/workflows:plan` (auto-detects brainstorm context)
+
+- `brainstorming` skill - Questioning techniques and YAGNI principles
+  - Five Whys technique for root cause discovery
+  - Problem framing, scope, and approach questions
+  - YAGNI red flags and counter-questions
+  - Approach exploration pattern with trade-off analysis
 
 - `laravel-livewire-patterns` skill - Comprehensive patterns for Livewire v3, Form Objects, and Flux UI
   - Component structure, lifecycle, attributes (#[Title], #[Lazy], #[On], etc.)
@@ -38,6 +50,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - **Incremental Commits**: New section with decision matrix for when to commit
   - Renumbered Phase 2 steps to accommodate new section
 
+- `/workflows:plan` - Unified output paths and brainstorm integration
+  - Output path changed: `plans/` → `docs/plans/`
+  - Detects and uses existing brainstorm documents
+  - Suggests `/workflows:brainstorm` for complex/unclear requirements
+
 - Enhanced `taylor-otwell-style` skill
   - Stronger emphasis on Actions pattern and thin controllers
   - Added i18n/translation patterns reference (`i18n.md`)
@@ -50,7 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Summary
 
-- 24 agents, 24 commands, 15 skills, 1 MCP server
+- 24 agents, 25 commands, 16 skills, 1 MCP server
 
 ---
 
