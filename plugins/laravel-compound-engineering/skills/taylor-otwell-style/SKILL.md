@@ -13,12 +13,16 @@ Apply Taylor Otwell's Laravel conventions to PHP and Laravel code. This skill pr
 "The best code is simple and disposable and easy to change."
 
 **Embrace Laravel conventions:**
-- Fat models, thin controllers
-- Actions pattern for complex operations
+- **THIN CONTROLLERS** - Controllers only receive requests and return responses
+- **ACTIONS PATTERN** - All business logic lives in Action classes (not controllers, not services)
+- Fat models with rich public APIs
 - RESTful resource controllers only
 - Eloquent over raw queries
 - Database queues over Redis (Laravel 11+)
 - Build expressive, memorable APIs
+
+**The Actions Pattern is NOT optional:**
+Every controller method should delegate to an Action. This is how Jetstream, Fortify, and Laravel Cloud work.
 
 **Taylor's strictest rules:**
 - **Never pass boolean flags to methods** - create separate methods instead
@@ -53,7 +57,8 @@ What are you working on?
 5. **Architecture** - Routing, authentication, jobs, events, caching
 6. **Testing** - PEST, factories, feature tests
 7. **Packages & Dependencies** - What to use vs build
-8. **Code Review** - Review code against Taylor's style
+8. **Internationalization** - Translations, localization, JSON lang files
+9. **Code Review** - Review code against Taylor's style
 
 **Specify a number or describe your task.**
 </intake>
@@ -68,7 +73,8 @@ What are you working on?
 | 5, "architecture", "routing", "auth", "job", "cache" | [architecture.md](./references/architecture.md) |
 | 6, "test", "testing", "pest", "factory" | [testing.md](./references/testing.md) |
 | 7, "package", "dependency", "library" | [packages.md](./references/packages.md) |
-| 8, "review" | Read all references, then review code |
+| 8, "i18n", "translation", "localization" | [i18n.md](./references/i18n.md) |
+| 9, "review" | Read all references, then review code |
 
 **After reading relevant references, apply patterns to the user's code.**
 </routing>
@@ -222,6 +228,7 @@ All detailed patterns in `references/`:
 | [architecture.md](./references/architecture.md) | Routing, authentication, jobs, events, Context, caching |
 | [testing.md](./references/testing.md) | PEST, factories, feature tests, mocking, database testing |
 | [packages.md](./references/packages.md) | What Taylor uses, decision framework, Spatie packages |
+| [i18n.md](./references/i18n.md) | Translations, localization, JSON lang files, date formatting |
 </reference_index>
 
 <success_criteria>

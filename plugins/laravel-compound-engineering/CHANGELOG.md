@@ -5,6 +5,42 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-01-20
+
+### Added
+
+- `laravel-livewire-patterns` skill - Comprehensive patterns for Livewire v3, Form Objects, and Flux UI
+  - Component structure, lifecycle, attributes (#[Title], #[Lazy], #[On], etc.)
+  - Form Objects for validation and data handling
+  - Flux UI Pro components (forms, tables, modals, navigation)
+  - Real-time features (live search, polling, events)
+  - Reference files: `components.md`, `form-objects.md`, `flux-ui.md`
+
+- `laravel-database-patterns` skill - Database operations, migrations, transactions, and Eloquent optimization
+  - Migration patterns with naming conventions and column types
+  - Transaction handling (closure, manual, retries, savepoints, locking)
+  - Eloquent best practices (scopes, accessors, events, relationships)
+  - Query optimization (eager loading, N+1 prevention, chunking)
+  - Reference files: `migrations.md`, `transactions.md`, `eloquent.md`
+
+### Changed
+
+- Enhanced `taylor-otwell-style` skill
+  - Stronger emphasis on Actions pattern and thin controllers
+  - Added i18n/translation patterns reference (`i18n.md`)
+  - Updated routing to include i18n as option 8
+
+- Updated agents to use Laravel skills
+  - `taylor-otwell-reviewer` now includes: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
+  - `data-integrity-guardian` now includes: `laravel-database-patterns`
+  - `data-migration-expert` now includes: `laravel-database-patterns`
+
+### Summary
+
+- 24 agents, 24 commands, 15 skills, 1 MCP server
+
+---
+
 ## [1.3.0] - 2026-01-20
 
 ### Changed

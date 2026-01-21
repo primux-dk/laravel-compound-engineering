@@ -7,8 +7,8 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 | Component | Count |
 |-----------|-------|
 | Agents | 24 |
-| Commands | 20 |
-| Skills | 13 |
+| Commands | 24 |
+| Skills | 15 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -105,14 +105,21 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 |-------|-------------|
 | `agent-native-architecture` | Build AI agents using prompt-native architecture |
 
+### Laravel Patterns
+
+| Skill | Description |
+|-------|-------------|
+| `taylor-otwell-style` | Write Laravel/PHP code in Taylor Otwell's style (Actions, thin controllers, i18n) |
+| `laravel-livewire-patterns` | Livewire v3 components, Form Objects, and Flux UI Pro patterns |
+| `laravel-database-patterns` | Database migrations, transactions, Eloquent optimization |
+| `spatie-laravel-package-writer` | Write Laravel packages following Spatie's patterns |
+
 ### Development Tools
 
 | Skill | Description |
 |-------|-------------|
-| `spatie-laravel-package-writer` | Write Laravel packages following Spatie's patterns |
 | `compound-docs` | Capture solved problems as categorized documentation |
 | `create-agent-skills` | Expert guidance for creating Claude Code skills |
-| `taylor-otwell-style` | Write Laravel/PHP code in Taylor Otwell's style |
 | `frontend-design` | Create production-grade frontend interfaces |
 | `skill-creator` | Guide for creating effective Claude Code skills |
 
