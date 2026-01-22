@@ -55,6 +55,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Detects and uses existing brainstorm documents
   - Suggests `/workflows:brainstorm` for complex/unclear requirements
 
+- Research agents - Mandatory API deprecation validation ([PR #102](https://github.com/EveryInc/compound-engineering-plugin/pull/102))
+  - `framework-docs-researcher` - Added step 2: MANDATORY Deprecation Check
+  - `best-practices-researcher` - Added Phase 1.5: MANDATORY Deprecation Check
+  - Prevents recommending deprecated APIs (e.g., Google Photos API scopes deprecated March 2025)
+  - "5 minutes of validation saves hours debugging dead APIs"
+
 - Enhanced `taylor-otwell-style` skill
   - Stronger emphasis on Actions pattern and thin controllers
   - Added i18n/translation patterns reference (`i18n.md`)

@@ -33,8 +33,27 @@ Before going online, check if curated knowledge already exists in skills:
    - Capture code examples and templates
 4. **Assess Coverage**:
    - If skills provide comprehensive guidance → summarize and deliver
-   - If skills provide partial guidance → note what's covered, proceed to Phase 2 for gaps
-   - If no relevant skills found → proceed to Phase 2
+   - If skills provide partial guidance → note what's covered, proceed to Phase 1.5/2 for gaps
+   - If no relevant skills found → proceed to Phase 1.5/2
+
+### Phase 1.5: MANDATORY Deprecation Check (for external APIs/services)
+
+**Before recommending any external API, OAuth flow, or third-party service:**
+
+1. **Search for deprecation**:
+   - `"[API/service name] deprecated 2026 sunset shutdown"`
+   - `"[API/service name] breaking changes migration"`
+
+2. **Verify official status**:
+   - Check official documentation for sunset notices
+   - Look for end-of-life announcements
+   - Check migration guides or replacement services
+
+3. **Report findings before proceeding**:
+   - If deprecated: STOP and recommend alternatives
+   - If active: note verification date and proceed
+
+**Why this matters:** Google Photos Library API scopes were deprecated March 2025. Without this check, developers waste hours debugging "insufficient scopes" errors on dead APIs. 5 minutes of validation saves hours of debugging.
 
 ### Phase 2: Online Research (If Needed)
 
@@ -92,5 +111,12 @@ Always cite your sources and indicate the authority level:
 - **Community**: "Many successful projects tend to..."
 
 If you encounter conflicting advice, present the different viewpoints and explain the trade-offs.
+
+## Quality Standards
+
+- **ALWAYS check for API deprecation first** when researching external APIs or services
+- Verify information is current (check dates on articles and documentation)
+- Cross-reference multiple sources for critical recommendations
+- Note when practices may vary by version or context
 
 Your research should be thorough but focused on practical application. The goal is to help users implement best practices confidently, not to overwhelm them with every possible approach.
