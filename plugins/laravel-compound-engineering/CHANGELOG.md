@@ -5,6 +5,39 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.3] - 2026-01-22
+
+### Added
+
+- **`learnings-researcher` agent** - Search institutional learnings in `docs/solutions/` ([PR #106](https://github.com/EveryInc/compound-engineering-plugin/pull/106))
+  - Grep-first filtering strategy for efficiency with 100+ files
+  - Category-based narrowing to reduce search scope
+  - Parallel Grep calls with synonym support (OR patterns)
+  - Case-insensitive matching with `-i=true`
+  - Frontmatter-only reads before full document reads
+  - Always checks critical patterns file
+  - Uses `haiku` model for speed
+
+### Changed
+
+- **`/workflows:plan`** - Added learnings-researcher to local research phase ([PR #106](https://github.com/EveryInc/compound-engineering-plugin/pull/106))
+  - Now runs repo-research-analyst AND learnings-researcher in parallel
+  - Consolidates institutional learnings (gotchas, patterns) into research output
+
+- **Search tool standardization** - Updated agents to use built-in Grep tool ([PR #106](https://github.com/EveryInc/compound-engineering-plugin/pull/106))
+  - `repo-research-analyst`: Use built-in Grep/Glob/Read tools, add TypeScript ast-grep example
+  - `pattern-recognition-specialist`: Use built-in Grep tool, keep ast-grep mention generic
+
+### Fixed
+
+- **`compound-docs` skill** - Fixed severity enum from `[critical, moderate, minor]` to `[critical, high, medium, low]`
+
+### Summary
+
+- 25 agents, 25 commands, 16 skills, 1 MCP server
+
+---
+
 ## [1.3.2] - 2026-01-22
 
 ### Changed
