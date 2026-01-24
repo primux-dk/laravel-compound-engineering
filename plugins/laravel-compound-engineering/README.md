@@ -8,7 +8,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 |-----------|-------|
 | Agents | 24 |
 | Commands | 25 |
-| Skills | 16 |
+| Skills | 17 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -87,7 +87,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `/generate_command` | Generate new slash commands |
 | `/heal-skill` | Fix skill documentation issues |
 | `/lfg` | Full autonomous engineering workflow |
-| `/plan_review` | Multi-agent plan review in parallel |
+| `/technical_review` | Multi-agent technical/architecture review in parallel |
 | `/release-docs` | Build and update the documentation site |
 | `/report-bug` | Report a bug in the plugin |
 | `/reproduce-bug` | Reproduce bugs using logs and console |
@@ -129,6 +129,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | Skill | Description |
 |-------|-------------|
 | `brainstorming` | Questioning techniques and YAGNI principles for requirements discovery |
+| `document-review` | Improve documents through structured self-review |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |
 

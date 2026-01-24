@@ -162,11 +162,20 @@ After saving the brainstorm, use **AskUserQuestion**:
 **Question:** "Brainstorm saved to `docs/brainstorms/<filename>-brainstorm.md`. What's next?"
 
 **Options:**
-1. **Start planning** - Run `/workflows:plan` with this context
-2. **Refine further** - Continue exploring
-3. **Pause for now** - Save and revisit later
+1. **Review and refine** - Improve the document through structured self-review
+2. **Proceed to planning** - Run `/workflows:plan` (will auto-detect this brainstorm)
+3. **Done for now** - Return later
 
-If "Start planning":
+**If user selects "Review and refine":**
+
+Load the `document-review` skill and apply it to the brainstorm document.
+
+When document-review returns "Review complete", present next steps:
+
+1. **Move to planning** - Continue to `/workflows:plan` with this document
+2. **Done for now** - Brainstorming complete. To start planning later: `/workflows:plan [document-path]`
+
+**If "Proceed to planning":**
 ```
 /workflows:plan docs/brainstorms/<filename>.md
 ```
