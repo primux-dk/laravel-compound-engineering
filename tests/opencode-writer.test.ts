@@ -59,4 +59,27 @@ describe("writeOpenCodeBundle", () => {
     expect(await exists(path.join(outputRoot, "skills", "skill-one", "SKILL.md"))).toBe(true)
     expect(await exists(path.join(outputRoot, ".opencode"))).toBe(false)
   })
+
+  test("writes directly into ~/.config/opencode style output root", async () => {
+    const tempRoot = await fs.mkdtemp(path.join(os.tmpdir(), "opencode-config-"))
+    const outputRoot = path.join(tempRoot, ".config", "opencode")
+    const bundle: OpenCodeBundle = {
+      config: { $schema: "https://opencode.ai/config.json" },
+      agents: [{ name: "agent-one", content: "Agent content" }],
+      plugins: [],
+      skillDirs: [
+        {
+          name: "skill-one",
+          sourceDir: path.join(import.meta.dir, "fixtures", "sample-plugin", "skills", "skill-one"),
+        },
+      ],
+    }
+
+    await writeOpenCodeBundle(outputRoot, bundle)
+
+    expect(await exists(path.join(outputRoot, "opencode.json"))).toBe(true)
+    expect(await exists(path.join(outputRoot, "agents", "agent-one.md"))).toBe(true)
+    expect(await exists(path.join(outputRoot, "skills", "skill-one", "SKILL.md"))).toBe(true)
+    expect(await exists(path.join(outputRoot, ".opencode"))).toBe(false)
+  })
 })

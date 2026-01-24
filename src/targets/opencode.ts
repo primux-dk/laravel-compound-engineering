@@ -28,7 +28,8 @@ export async function writeOpenCodeBundle(outputRoot: string, bundle: OpenCodeBu
 }
 
 function resolveOpenCodePaths(outputRoot: string) {
-  if (path.basename(outputRoot) === ".opencode") {
+  const base = path.basename(outputRoot)
+  if (base === ".opencode" || base === "opencode") {
     return {
       root: outputRoot,
       configPath: path.join(outputRoot, "opencode.json"),
