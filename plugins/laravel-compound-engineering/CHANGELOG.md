@@ -5,6 +5,17 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.3.4] - 2026-01-28
+
+### Improved
+
+- **`/workflows:brainstorm` command** - Better question flow
+  - Added "Ask more questions" option at handoff phase
+  - Clarified that Claude should ask the user questions (not wait for user to ask)
+  - Added requirement to resolve ALL open questions before offering to proceed to planning
+
+---
+
 ## [1.3.3] - 2026-01-22
 
 ### Added
