@@ -5,6 +5,32 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.4.0] - 2026-02-06
+
+### Added
+
+- **`orchestrating-swarms` skill** - Comprehensive guide to multi-agent orchestration
+  - Covers primitives: Agent, Team, Teammate, Leader, Task, Inbox, Message, Backend
+  - Documents two spawning methods: subagents vs teammates
+  - Explains all 13 TeammateTool operations
+  - Includes orchestration patterns: Parallel Specialists, Pipeline, Self-Organizing Swarm
+  - Details spawn backends: in-process, tmux, iterm2
+  - Provides complete workflow examples
+- **`/slfg` command** - Swarm-enabled variant of `/lfg` that uses swarm mode for parallel execution
+- **`github-code-researcher` agent** - Search GitHub for open source implementations and patterns
+  - Uses `gh search code` to find real-world code examples in popular repos
+  - Uses `gh search repos` to discover reference projects by stars, topic, and language
+  - Uses `gh search issues`/`prs` to find community solutions and discussions
+  - Fetches actual file contents via `gh api` for code analysis
+  - Includes trusted organization list (spatie, laravel, filamentphp, etc.)
+  - Complements best-practices-researcher (articles) and framework-docs-researcher (docs)
+
+### Changed
+
+- **`/workflows:work` command** - Added optional Swarm Mode section for parallel execution with coordinated agents
+
+---
+
 ## [1.3.4] - 2026-01-28
 
 ### Improved

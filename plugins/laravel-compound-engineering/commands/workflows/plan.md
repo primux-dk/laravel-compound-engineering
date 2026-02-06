@@ -101,6 +101,7 @@ Run these agents in parallel:
 
 - Task best-practices-researcher(feature_description)
 - Task framework-docs-researcher(feature_description)
+- Task github-code-researcher(feature_description)
 
 ### 1.6. Consolidate Research
 
@@ -109,6 +110,7 @@ After all research steps complete, consolidate findings:
 - Document relevant file paths from repo research (e.g., `app/Actions/Example/ProcessExample.php:42`)
 - **Include relevant institutional learnings** from `docs/solutions/` (key insights, gotchas to avoid)
 - Note external documentation URLs and best practices (if external research was done)
+- **Include open source implementations** found via GitHub code search (repo names, star counts, key patterns)
 - List related issues or PRs discovered (e.g., `#123`, `#456`)
 - Capture CLAUDE.md conventions
 

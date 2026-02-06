@@ -6,9 +6,9 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 
 | Component | Count |
 |-----------|-------|
-| Agents | 24 |
-| Commands | 25 |
-| Skills | 17 |
+| Agents | 26 |
+| Commands | 26 |
+| Skills | 18 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -33,13 +33,14 @@ Agents are organized into categories for easier discovery.
 | `security-sentinel` | Security audits and vulnerability assessments |
 | `julik-frontend-races-reviewer` | Review JavaScript/Stimulus code for race conditions |
 
-### Research (4)
+### Research (5)
 
 | Agent | Description |
 |-------|-------------|
 | `best-practices-researcher` | Gather external best practices and examples |
 | `framework-docs-researcher` | Research framework documentation and best practices |
 | `git-history-analyzer` | Analyze git history and code evolution |
+| `github-code-researcher` | Search GitHub for open source implementations and patterns via `gh` CLI |
 | `repo-research-analyst` | Research repository structure and conventions |
 
 ### Design (3)
@@ -87,6 +88,7 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `/generate_command` | Generate new slash commands |
 | `/heal-skill` | Fix skill documentation issues |
 | `/lfg` | Full autonomous engineering workflow |
+| `/slfg` | Full autonomous workflow with swarm mode for parallel execution |
 | `/technical_review` | Multi-agent technical/architecture review in parallel |
 | `/release-docs` | Build and update the documentation site |
 | `/report-bug` | Report a bug in the plugin |
@@ -132,6 +134,12 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | `document-review` | Improve documents through structured self-review |
 | `file-todos` | File-based todo tracking system |
 | `git-worktree` | Manage Git worktrees for parallel development |
+
+### Multi-Agent Orchestration
+
+| Skill | Description |
+|-------|-------------|
+| `orchestrating-swarms` | Comprehensive guide to multi-agent swarm orchestration |
 
 ### File Transfer
 
