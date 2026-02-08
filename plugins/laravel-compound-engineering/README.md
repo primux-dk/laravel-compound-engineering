@@ -8,7 +8,7 @@ AI-powered development tools that get smarter with every use. Make each unit of 
 |-----------|-------|
 | Agents | 26 |
 | Commands | 26 |
-| Skills | 18 |
+| Skills | 20 |
 | MCP Servers | 1 |
 
 ## Agents
@@ -113,8 +113,10 @@ Core workflow commands use `workflows:` prefix to avoid collisions with built-in
 | Skill | Description |
 |-------|-------------|
 | `taylor-otwell-style` | Write Laravel/PHP code in Taylor Otwell's style (Actions, thin controllers, i18n) |
-| `laravel-livewire-patterns` | Livewire v3 components, Form Objects, and Flux UI Pro patterns |
+| `laravel-livewire-patterns` | Livewire v4 components, Form Objects, and Flux UI Pro patterns |
 | `laravel-database-patterns` | Database migrations, transactions, Eloquent optimization |
+| `pest-testing` | Pest 4 testing: browser tests, architecture tests, datasets, smoke testing |
+| `tailwindcss-v4` | Tailwind CSS v4 patterns, CSS-first config, deprecated utility replacements |
 | `spatie-laravel-package-writer` | Write Laravel packages following Spatie's patterns |
 
 ### Development Tools

@@ -373,6 +373,70 @@ it('validates in real-time', function () {
 ```
 </testing>
 
+<livewire4_changes>
+## Livewire 4 Changes from v3
+
+**Breaking changes:**
+- Use `Route::livewire()` for full-page components
+- Config keys renamed: `layout` → `component_layout`, `lazy_placeholder` → `component_placeholder`
+- `wire:model` ignores child events by default (use `wire:model.deep` for old behavior)
+- `wire:scroll` renamed to `wire:navigate:scroll`
+- Component tags must be properly closed
+- `wire:transition` uses View Transitions API (modifiers removed)
+
+**JavaScript API changes:**
+- `$wire.$js('name', fn)` → `$wire.$js.name = fn`
+- `commit`/`request` hooks → `interceptMessage()`/`interceptRequest()`
+
+**New config options:**
+- `smart_wire_keys` defaults to `true`
+- `component_locations`, `component_namespaces`, `make_command`, `csp_safe`
+</livewire4_changes>
+
+<javascript_hooks>
+## JavaScript Integration (v4)
+
+**Intercept messages:**
+```js
+Livewire.interceptMessage(({ component, message, onFinish, onSuccess, onError }) => {
+    onFinish(() => { /* After response, before processing */ });
+    onSuccess(({ payload }) => { /* payload.snapshot, payload.effects */ });
+    onError(() => { /* Server errors */ });
+});
+```
+
+**Intercept requests:**
+```js
+Livewire.interceptRequest(({ request, onResponse, onSuccess, onError, onFailure }) => {
+    onResponse(({ response }) => { /* When received */ });
+    onSuccess(({ response, responseJson }) => { /* Success */ });
+    onError(({ response, responseBody, preventDefault }) => { /* 4xx/5xx */ });
+    onFailure(({ error }) => { /* Network failures */ });
+});
+```
+
+**Component-scoped interceptors:**
+```blade
+<script>
+    this.$intercept('save', ({ component, onSuccess }) => {
+        onSuccess(() => console.log('Saved!'));
+    });
+</script>
+```
+
+**Magic properties:** `$errors` (validation errors from JS), `$intercept` (component-scoped interceptors)
+</javascript_hooks>
+
+<common_pitfalls>
+## Common Pitfalls
+
+- Missing `wire:key` in loops → unexpected re-rendering
+- Expecting `wire:model` real-time → use `wire:model.live`
+- Unclosed component tags → syntax errors in v4
+- Using deprecated config keys or JS hooks
+- Alpine.js is already bundled in Livewire 4 — do not include separately
+</common_pitfalls>
+
 <anti_patterns>
 ## Anti-Patterns to Avoid
 

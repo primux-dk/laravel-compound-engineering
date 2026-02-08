@@ -5,6 +5,50 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.0] - 2026-02-08
+
+### Added
+
+- **`pest-testing` skill** - Comprehensive Pest 4 testing patterns
+  - Feature tests, browser testing, smoke testing
+  - Architecture tests for enforcing code conventions
+  - Datasets for parameterized tests
+  - Mocking patterns (Mail, Queue, Notification fakes)
+  - Livewire component testing patterns
+  - Specific assertion recommendations (assertSuccessful over assertStatus)
+
+- **`tailwindcss-v4` skill** - Tailwind CSS v4 development patterns
+  - CSS-first configuration with `@theme` directive
+  - Import syntax change (`@import "tailwindcss"` replaces `@tailwind` directives)
+  - Complete deprecated utility replacement table (12 utilities)
+  - Gap-over-margins pattern, dark mode, layout patterns
+  - Common pitfalls for v3→v4 migration
+
+### Changed
+
+- **`laravel-livewire-patterns` skill** - Upgraded from Livewire v3 to v4
+  - Added component formats: Single-File (SFC), Multi-File (MFC), view-based
+  - Added `livewire:convert` command documentation
+  - Added Islands (`@island`) for isolated update regions
+  - Added async actions (`wire:click.async`, `#[Async]`)
+  - Added deferred/bundled loading (`defer`, `lazy.bundle`)
+  - Added new directives: `wire:sort`, `wire:intersect`, `wire:ref`, `.renderless`, `.preserve-scroll`
+  - Added v3→v4 breaking changes section (config renames, wire:model behavior, JS API changes)
+  - Added JavaScript interceptor system (`interceptMessage`, `interceptRequest`)
+  - Added common pitfalls section
+  - Preserved existing Actions pattern and thin components philosophy
+
+- **Flux UI reference** - Added component list and icon guidance
+  - Full list of all available Pro components (47 components)
+  - Heroicons as default icon set with search guidance
+  - Lucide fallback with `php artisan flux:icon` import command
+
+### Summary
+
+- 26 agents, 26 commands, 20 skills, 1 MCP server
+
+---
+
 ## [1.4.0] - 2026-02-06
 
 ### Added

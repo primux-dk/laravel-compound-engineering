@@ -9,6 +9,31 @@
 4. **Customization** - Extend with Tailwind classes when needed
 </principles>
 
+<available_components>
+## Available Components (Pro Edition)
+
+accordion, autocomplete, avatar, badge, brand, breadcrumbs, button, calendar, callout, card, chart, checkbox, command, composer, context, date-picker, dropdown, editor, field, file-upload, heading, icon, input, kanban, modal, navbar, otp-input, pagination, pillbox, popover, profile, radio, select, separator, skeleton, slider, switch, table, tabs, text, textarea, time-picker, toast, tooltip
+
+Always check this list before creating custom implementations — a Flux component likely already exists.
+</available_components>
+
+<icons>
+## Icons
+
+Flux includes [Heroicons](https://heroicons.com/) as its default icon set. Always search for exact icon names on the Heroicons site — do not guess or invent names.
+
+```blade
+<flux:button icon="arrow-down-tray">Export</flux:button>
+<flux:icon icon="check-circle" />
+```
+
+For icons not available in Heroicons, use [Lucide](https://lucide.dev/). Import icons with the Artisan command:
+
+```bash
+php artisan flux:icon crown grip-vertical github
+```
+</icons>
+
 <layout>
 ## Layout Components
 
