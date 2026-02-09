@@ -5,6 +5,35 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2026-02-09
+
+### Added
+
+- **`sync` command** - Sync personal Claude Code config to OpenCode or Codex ([PR #123](https://github.com/EveryInc/compound-engineering-plugin/pull/123))
+  - Parses `~/.claude/skills/` for personal skills (supports symlinks)
+  - Parses `~/.claude/settings.json` for MCP servers
+  - Syncs skills as symlinks (single source of truth, instant updates)
+  - Converts MCP to JSON (OpenCode) or TOML (Codex)
+
+### Fixed
+
+- **Config backup** - Backup existing config files before overwriting ([PR #119](https://github.com/EveryInc/compound-engineering-plugin/pull/119))
+  - `backupFile()` utility creates timestamped backups (e.g., `config.toml.bak.2026-02-09T...`)
+  - Backs up `config.toml` (Codex) and `opencode.json` (OpenCode) before writing
+
+- **`git-worktree` skill** - Remove confirmation prompt when creating worktrees ([PR #144](https://github.com/EveryInc/compound-engineering-plugin/pull/144))
+  - Removes interactive `y/n` prompt that blocked Claude from creating worktrees on first try
+
+- **`git-worktree` skill** - Detect worktrees where `.git` is a file, not a directory ([PR #159](https://github.com/EveryInc/compound-engineering-plugin/pull/159))
+  - Changed `-d` to `-e` check — in worktrees `.git` is a file containing a `gitdir:` pointer
+
+### Summary
+
+- 26 agents, 26 commands, 20 skills, 1 MCP server
+- CLI bumped to 0.2.0
+
+---
+
 ## [1.5.2] - 2026-02-09
 
 ### Fixed

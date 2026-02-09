@@ -75,6 +75,24 @@ If you're not sure what the feature should look like yet, start with brainstormi
 
 This walks you through questions to clarify what you actually need before committing to a plan. Once the brainstorm is clear, move to `/workflows:plan`.
 
+## Sync Personal Config
+
+Sync your personal Claude Code config (`~/.claude/`) to OpenCode or Codex:
+
+```bash
+# Sync skills and MCP servers to OpenCode
+bunx @primux/laravel-compound-plugin sync --target opencode
+
+# Sync to Codex
+bunx @primux/laravel-compound-plugin sync --target codex
+```
+
+This syncs:
+- Personal skills from `~/.claude/skills/` (as symlinks)
+- MCP servers from `~/.claude/settings.json`
+
+Skills are symlinked (not copied) so changes in Claude Code are reflected immediately.
+
 ## Workflow Commands
 
 | Command | Purpose |

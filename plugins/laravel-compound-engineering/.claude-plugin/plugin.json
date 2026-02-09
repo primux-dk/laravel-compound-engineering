@@ -1,6 +1,6 @@
 {
   "name": "laravel-compound-engineering",
-  "version": "1.5.2",
+  "version": "1.6.0",
   "description": "AI-powered development tools. 26 agents, 26 commands, 20 skills, 1 MCP server for code review, research, design, and workflow automation.",
   "author": {
     "name": "Kristian Primdal",
