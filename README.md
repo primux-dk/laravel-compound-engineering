@@ -11,14 +11,75 @@ This is a Laravel-focused fork of the [Compound Engineering Plugin](https://gith
 /plugin install compound-engineering
 ```
 
-## Workflow
+## Getting Started: Your First Feature
+
+Already have Claude Code installed and a Laravel project ready? Here's how to build your first feature from start to finish.
+
+### 1. Plan your feature
+
+Don't try to build everything at once. Pick one feature and describe it clearly:
 
 ```
-Plan → Work → Review → Compound → Repeat
+/workflows:plan
 ```
+
+Write out what you want to build. The plan command turns your description into a structured implementation plan with steps, files to create, and considerations.
+
+### 2. Review the plan
+
+Read through the generated plan. If something needs adjusting, use the `/deepen-plan` command to enrich it with research, or just ask Claude Code to change specific parts.
+
+### 3. Start building
+
+When the plan looks good, start the work:
+
+```
+/workflows:work
+```
+
+Ask it to create a **Git worktree** if you plan to keep working on other things in parallel. The work command picks up where the plan left off and executes it step by step.
+
+### 4. Review the code
+
+Once the work is done, review what was built:
+
+```
+/workflows:review
+```
+
+This runs multiple specialized review agents in parallel — checking architecture, security, performance, and code quality. If you want to track the findings, explicitly ask it to create todos from the review.
+
+### 5. Address findings
+
+Look at the todos from the review. Delete the ones you disagree with. Then use `/triage` to prioritize them, or run `/resolve_parallel` to let Claude Code fix them all in parallel.
+
+### 6. Create a PR and merge
+
+Ask Claude Code to create a pull request. Go to GitHub, skim the code one more time to build your understanding of the architecture, then merge it.
+
+### 7. Clean up and repeat
+
+Delete the worktree, and start the cycle again with your next feature.
+
+```
+Plan → Work → Review → Fix → PR → Merge → Repeat
+```
+
+### When you have a vague idea
+
+If you're not sure what the feature should look like yet, start with brainstorming instead:
+
+```
+/workflows:brainstorm
+```
+
+This walks you through questions to clarify what you actually need before committing to a plan. Once the brainstorm is clear, move to `/workflows:plan`.
+
+## Workflow Commands
 
 | Command | Purpose |
 |---------|---------|
+| `/workflows:brainstorm` | Explore a vague idea before committing to a plan |
 | `/workflows:plan` | Turn feature ideas into detailed implementation plans |
 | `/workflows:work` | Execute plans with worktrees and task tracking |
 | `/workflows:review` | Multi-agent code review before merging |
