@@ -5,6 +5,23 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2026-02-09
+
+### Fixed
+
+- **`/workflows:compound` command** - Prevent subagents from writing intermediary files ([PR #150](https://github.com/EveryInc/compound-engineering-plugin/pull/150))
+  - Restructured from flat parallel strategy to two-phase orchestration (research → assembly)
+  - Added `<critical_requirement>` block forbidding subagent file writes
+  - Removed Documentation Writer as a subagent; orchestrator handles assembly in Phase 2
+  - Added "Common Mistakes to Avoid" table for quick reference
+  - Simplified success output
+
+### Summary
+
+- 26 agents, 26 commands, 20 skills, 1 MCP server
+
+---
+
 ## [1.5.0] - 2026-02-08
 
 ### Added
