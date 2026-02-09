@@ -1,8 +1,29 @@
 ---
 name: github-code-researcher
-description: "Use this agent when you need to find real-world open source implementations, patterns, and community solutions on GitHub. This agent uses the `gh` CLI to search GitHub code, repositories, issues, and pull requests, then fetches actual file contents for analysis. It complements best-practices-researcher (web articles) and framework-docs-researcher (official docs) by providing concrete code examples from production open source projects. <example>Context: The user wants to see how popular Laravel packages implement the Action pattern. user: \"How do well-known Laravel packages implement the Action pattern?\" assistant: \"I'll use the github-code-researcher agent to find real implementations of the Action pattern in popular Laravel repositories.\" <commentary>Since the user wants real code examples from open source projects, use the github-code-researcher agent to search GitHub for concrete implementations.</commentary></example> <example>Context: The user is implementing a feature and wants to see how others solved it. user: \"How do other projects handle Stripe webhook verification in Laravel?\" assistant: \"Let me use the github-code-researcher agent to find how popular open source projects handle Stripe webhook verification.\" <commentary>The user needs real implementation examples, not documentation. The github-code-researcher agent will search GitHub code and repos to find battle-tested solutions.</commentary></example> <example>Context: The user wants to understand common approaches to a technical problem. user: \"What are common patterns for implementing multi-tenancy in Laravel?\" assistant: \"I'll use the github-code-researcher agent to search GitHub for multi-tenancy implementations in Laravel projects.\" <commentary>Finding real implementations across multiple projects gives the user concrete patterns to evaluate, not just theoretical advice.</commentary></example>"
+description: "Finds real-world open source implementations, patterns, and community solutions on GitHub using the gh CLI. Use when you need concrete code examples from production projects rather than documentation or articles -- complements best-practices-researcher and framework-docs-researcher."
 model: haiku
 ---
+
+<examples>
+<example>
+Context: The user wants to see how popular Laravel packages implement the Action pattern.
+user: "How do well-known Laravel packages implement the Action pattern?"
+assistant: "I'll use the github-code-researcher agent to find real implementations of the Action pattern in popular Laravel repositories."
+<commentary>Since the user wants real code examples from open source projects, use the github-code-researcher agent to search GitHub for concrete implementations.</commentary>
+</example>
+<example>
+Context: The user is implementing a feature and wants to see how others solved it.
+user: "How do other projects handle Stripe webhook verification in Laravel?"
+assistant: "Let me use the github-code-researcher agent to find how popular open source projects handle Stripe webhook verification."
+<commentary>The user needs real implementation examples, not documentation. The github-code-researcher agent will search GitHub code and repos to find battle-tested solutions.</commentary>
+</example>
+<example>
+Context: The user wants to understand common approaches to a technical problem.
+user: "What are common patterns for implementing multi-tenancy in Laravel?"
+assistant: "I'll use the github-code-researcher agent to search GitHub for multi-tenancy implementations in Laravel projects."
+<commentary>Finding real implementations across multiple projects gives the user concrete patterns to evaluate, not just theoretical advice.</commentary>
+</example>
+</examples>
 
 **Note: The current year is 2026.** Use this when filtering by date or evaluating recency.
 

@@ -5,6 +5,30 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2026-02-09
+
+### Changed
+
+- **Agent descriptions** - Trimmed 25 verbose agent descriptions (~38,860 → ~5,200 chars) ([upstream PR #161](https://github.com/EveryInc/compound-engineering-plugin/pull/161))
+  - Replaced multi-paragraph descriptions with concise 1-2 sentence summaries
+  - Moved `<example>` blocks from YAML frontmatter into agent body as `<examples>` tags
+  - Affected agents: all design (3), research (6), review (13), and workflow (3) agents
+
+- **Command visibility** - Added `disable-model-invocation: true` to 18 commands with side effects
+  - Prevents auto-discovery of orchestrators (`lfg`, `slfg`), diagnostic tools (`doctor`), and side-effect commands (`changelog`, `deploy-docs`, `triage`, etc.)
+  - Keeps 8 core workflow commands auto-discoverable (`workflows:plan`, `workflows:work`, `workflows:review`, etc.)
+
+- **Skill visibility** - Added `disable-model-invocation: true` to 5 specialized skills
+  - `orchestrating-swarms`, `skill-creator`, `compound-docs`, `file-todos`, `create-agent-skills`
+  - Keeps 15 auto-discoverable skills for Laravel, testing, styling, and design patterns
+
+### Summary
+
+- 26 agents, 26 commands, 20 skills, 1 MCP server
+- Plugin context reduced from ~46,679 to ~9,800 chars (~79% reduction)
+
+---
+
 ## [1.6.0] - 2026-02-09
 
 ### Added

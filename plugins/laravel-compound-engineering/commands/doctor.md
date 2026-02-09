@@ -1,6 +1,7 @@
 ---
 name: plugin:doctor
 description: Check plugin requirements and install missing dependencies
+disable-model-invocation: true
 ---
 
 # Plugin Doctor Command
