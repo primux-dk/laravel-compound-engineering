@@ -5,6 +5,20 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.2] - 2026-02-09
+
+### Fixed
+
+- **OpenCode converter** - Fix crash when hook entries have no matcher ([PR #160](https://github.com/EveryInc/compound-engineering-plugin/pull/160))
+  - Made `matcher` optional in `ClaudeHookMatcher` type (hooks like `SessionStart` and `SubagentStop` don't need one)
+  - Guarded all `matcher.matcher` accesses in `claude-to-opencode.ts` with nullish coalescing
+
+### Summary
+
+- 26 agents, 26 commands, 20 skills, 1 MCP server
+
+---
+
 ## [1.5.1] - 2026-02-09
 
 ### Fixed
