@@ -5,6 +5,43 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.0] - 2026-02-10
+
+### Added
+
+- **`/triage-prs` command** - Triage all open PRs with parallel agents, label, group, and review one-by-one
+  - Detects repo from current directory or `$ARGUMENTS`
+  - Batches PRs by theme (bug fixes, features, docs, stale)
+  - Spawns parallel review agents per batch
+  - Cross-references issues to PRs
+  - Compiles triage report with recommended actions
+  - Interactive one-by-one merge/comment/close/skip flow
+  - Post-triage cleanup and summary
+
+### Changed
+
+- **`create-agent-skills` skill** - Rewrite to document unified commands/skills system
+  - Documents that commands and skills are now the same mechanism
+  - Adds new frontmatter fields: `disable-model-invocation`, `user-invocable`, `context`, `agent`
+  - Adds invocation control table and dynamic context injection docs
+  - Adds `$ARGUMENTS` and subagent (`context: fork`) documentation
+
+- **`skill-structure.md` reference** - Fix incorrect XML tags recommendation
+  - Was recommending XML tags over markdown headings (wrong)
+  - Now correctly recommends standard markdown headings
+  - Updated validation checklist and anti-patterns
+
+- **`official-spec.md` reference** - Complete 2026 specification update
+  - Documents commands/skills merger
+  - Adds complete frontmatter reference with all new fields
+  - Adds invocation control, string substitutions, dynamic context injection
+
+### Summary
+
+- 26 agents, 27 commands, 20 skills, 1 MCP server
+
+---
+
 ## [1.7.0] - 2026-02-09
 
 ### Changed
