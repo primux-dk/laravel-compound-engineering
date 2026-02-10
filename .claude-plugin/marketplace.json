@@ -12,7 +12,7 @@
     {
       "name": "laravel-compound-engineering",
       "description": "AI-powered development tools for Laravel and PHP. Make each unit of engineering work easier than the last. Includes 26 agents, 27 commands, and 20 skills.",
-      "version": "1.8.0",
+      "version": "1.8.1",
       "author": {
         "name": "Primux",
         "url": "https://github.com/primux-dk"

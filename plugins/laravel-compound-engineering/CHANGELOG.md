@@ -5,6 +5,25 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.8.1] - 2026-02-10
+
+### Fixed
+
+- **`/deepen-plan` command** - Fix context window exhaustion from unbounded agent spawning
+  - Capped total background agents at 8 (was unlimited, commonly spawning 15-40+)
+  - Replaced "run ALL agents" instructions with relevance-based filtering per step
+  - Agents now write results to `/tmp/deepen-plan/{agent-name}.md` (keeps outputs off orchestrator context until synthesis)
+  - Switched from non-blocking `TaskOutput` polling to single blocking calls (eliminates token-wasting poll loops)
+  - Combined learnings + research into grouped agents (2-3 instead of one per section/learning)
+  - Added domain summary in Step 1 for consistent filtering across all later steps
+  - Added agent budget labels per step: Skills (2-3), Research+Learnings (2-3), Review (2-3)
+
+### Summary
+
+- 26 agents, 27 commands, 20 skills, 1 MCP server
+
+---
+
 ## [1.8.0] - 2026-02-10
 
 ### Added

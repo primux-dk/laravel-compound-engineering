@@ -19,6 +19,25 @@ This command takes an existing plan (from `/workflows:plan`) and enhances each s
 
 The result is a deeply grounded, production-ready plan with concrete implementation details.
 
+> **CRITICAL CONSTRAINT: Spawn a MAXIMUM of 8 total background agents across ALL steps combined.**
+> More agents = context window exhaustion before synthesis. Filter ruthlessly for relevance.
+> Each agent MUST write its output to `/tmp/deepen-plan/{agent-name}.md` so results stay off the orchestrator's context until synthesis.
+
+## Agent Output Protocol
+
+Before spawning any agents, create the output directory:
+
+```bash
+mkdir -p /tmp/deepen-plan
+```
+
+Every agent prompt MUST include this instruction:
+```
+IMPORTANT: Write your COMPLETE findings to /tmp/deepen-plan/{agent-name}.md
+Start the file with a # heading summarizing your role, then write all findings.
+Your terminal output should be a brief 1-2 sentence summary only.
+```
+
 ## Plan File
 
 <plan_path> #$ARGUMENTS </plan_path>
@@ -55,10 +74,17 @@ Section 2: [Title] - [Brief description of what to research]
 ...
 ```
 
-### 2. Discover and Apply Available Skills
+**Create a domain summary** (used for agent filtering in later steps):
+```
+Primary domains: [e.g., Laravel API, database, frontend]
+Technologies: [e.g., Laravel 11, Livewire 4, Tailwind v4]
+Concerns: [e.g., performance, security, UI/UX]
+```
+
+### 2. Discover and Apply Available Skills (Budget: 2-3 agents)
 
 <thinking>
-Dynamically discover all available skills and match them to plan sections. Don't assume what skills exist - discover them at runtime.
+Discover available skills and match ONLY the most relevant ones to the plan. Cap at 3 skill agents maximum.
 </thinking>
 
 **Step 1: Discover ALL available skills from ALL sources**
@@ -80,8 +106,6 @@ find ~/.claude/plugins/cache -type d -name "skills" 2>/dev/null
 cat ~/.claude/plugins/installed_plugins.json
 ```
 
-**Important:** Check EVERY source. Don't assume compound-engineering is the only plugin. Use skills from ANY installed plugin that's relevant.
-
 **Step 2: For each discovered skill, read its SKILL.md to understand what it does**
 
 ```bash
@@ -89,20 +113,20 @@ cat ~/.claude/plugins/installed_plugins.json
 cat [skill-path]/SKILL.md
 ```
 
-**Step 3: Match skills to plan content**
+**Step 3: Rank skills by relevance to the plan's domain summary**
 
-For each skill discovered:
-- Read its SKILL.md description
-- Check if any plan sections match the skill's domain
-- If there's a match, spawn a sub-agent to apply that skill's knowledge
+Score each skill against the plan:
+- **High relevance:** Skill's domain directly matches a primary plan technology or concern
+- **Medium relevance:** Skill overlaps with a secondary plan concern
+- **Low relevance:** Skill's domain doesn't intersect with the plan
 
-**Step 4: Spawn a sub-agent for EVERY matched skill**
+**Step 4: Spawn agents for the TOP 2-3 most relevant skills only**
 
-**CRITICAL: For EACH skill that matches, spawn a separate sub-agent and instruct it to USE that skill.**
+Select the 2-3 highest-relevance skills. Skip everything rated "low relevance."
 
-For each matched skill:
+For each selected skill, spawn a background agent:
 ```
-Task general-purpose: "You have the [skill-name] skill available at [skill-path].
+Task general-purpose (run_in_background: true): "You have the [skill-name] skill available at [skill-path].
 
 YOUR JOB: Use this skill on the plan.
 
@@ -112,63 +136,31 @@ YOUR JOB: Use this skill on the plan.
 
 [relevant plan section or full plan]
 
-4. Return the skill's full output
+4. Write your COMPLETE findings to /tmp/deepen-plan/skill-[skill-name].md
+5. Print a 1-2 sentence summary to stdout.
 
 The skill tells you what to do - follow it. Execute the skill completely."
 ```
 
-**Spawn ALL skill sub-agents in PARALLEL:**
-- 1 sub-agent per matched skill
-- Each sub-agent reads and uses its assigned skill
-- All run simultaneously
-- 10, 20, 30 skill sub-agents is fine
-
-**Each sub-agent:**
-1. Reads its skill's SKILL.md
-2. Follows the skill's workflow/instructions
-3. Applies the skill to the plan
-4. Returns whatever the skill produces (code, recommendations, patterns, reviews, etc.)
-
-**Example spawns:**
+**Example selection for a Laravel API plan:**
 ```
-Task general-purpose: "Apply the taylor-otwell-style skill to: [Laravel sections of plan]"
+# Selected (high relevance):
+- taylor-otwell-style (Laravel code patterns) → agent 1
+- laravel-database-patterns (DB optimization) → agent 2
 
-Task general-purpose: "Apply the frontend-design skill to: [UI sections of plan]"
-
-Task general-purpose: "Apply the agent-native-architecture skill to: [agent/tool sections of plan]"
-
-Task general-purpose: "Apply the security-patterns skill to: [full plan]"
+# Skipped (low relevance for an API plan):
+- frontend-design (no frontend in plan)
+- gemini-imagegen (no image generation)
+- rclone (no file uploads)
 ```
 
-**No limit on skill sub-agents. Spawn one for every skill that could possibly be relevant.**
-
-### 3. Discover and Apply Learnings/Solutions
+### 3. Discover and Apply Learnings + Launch Research (Budget: 2-3 agents)
 
 <thinking>
-Check for documented learnings from /workflows:compound. These are solved problems stored as markdown files. Spawn a sub-agent for each learning to check if it's relevant.
+Combine learnings discovery and per-section research into fewer agents to stay within budget. Group related plan sections into 1-2 research prompts.
 </thinking>
 
-**LEARNINGS LOCATION - Check these exact folders:**
-
-```
-docs/solutions/           <-- PRIMARY: Project-level learnings (created by /workflows:compound)
-├── performance-issues/
-│   └── *.md
-├── debugging-patterns/
-│   └── *.md
-├── configuration-fixes/
-│   └── *.md
-├── integration-issues/
-│   └── *.md
-├── deployment-issues/
-│   └── *.md
-└── [other-categories]/
-    └── *.md
-```
-
-**Step 1: Find ALL learning markdown files**
-
-Run these commands to get every learning file:
+**Step 1: Check for documented learnings**
 
 ```bash
 # PRIMARY LOCATION - Project learnings
@@ -179,202 +171,153 @@ find .claude/docs -name "*.md" -type f 2>/dev/null
 find ~/.claude/docs -name "*.md" -type f 2>/dev/null
 ```
 
-**Step 2: Read frontmatter of each learning to filter**
+**Step 2: Read frontmatter to filter learnings**
 
-Each learning file has YAML frontmatter with metadata. Read the first ~20 lines of each file to get:
-
-```yaml
----
-title: "N+1 Query Fix for Briefs"
-category: performance-issues
-tags: [eloquent, n-plus-one, eager-loading, with]
-module: Briefs
-symptom: "Slow page load, multiple queries in logs"
-root_cause: "Missing includes on association"
----
-```
-
-**For each .md file, quickly scan its frontmatter:**
-
-```bash
-# Read first 20 lines of each learning (frontmatter + summary)
-head -20 docs/solutions/**/*.md
-```
-
-**Step 3: Filter - only spawn sub-agents for LIKELY relevant learnings**
-
-Compare each learning's frontmatter against the plan:
-- `tags:` - Do any tags match technologies/patterns in the plan?
-- `category:` - Is this category relevant? (e.g., skip deployment-issues if plan is UI-only)
-- `module:` - Does the plan touch this module?
-- `symptom:` / `root_cause:` - Could this problem occur with the plan?
+Each learning file has YAML frontmatter. Read the first ~20 lines to get tags, category, module, and root_cause. Compare against the plan's domain summary.
 
 **SKIP learnings that are clearly not applicable:**
 - Plan is frontend-only → skip `database-migrations/` learnings
 - Plan is Python → skip `laravel-specific/` learnings
 - Plan has no auth → skip `authentication-issues/` learnings
 
-**SPAWN sub-agents for learnings that MIGHT apply:**
-- Any tag overlap with plan technologies
-- Same category as plan domain
-- Similar patterns or concerns
+**Step 3: Combine learnings + research into grouped agents**
 
-**Step 4: Spawn sub-agents for filtered learnings**
+Instead of one agent per learning and one per plan section, group them:
 
-For each learning that passes the filter:
-
+**Agent A - Research + Learnings for the plan's primary domain:**
 ```
-Task general-purpose: "
-LEARNING FILE: [full path to .md file]
+Task Explore (run_in_background: true): "Research best practices for: [primary plan domain].
 
-1. Read this learning file completely
-2. This learning documents a previously solved problem
+ALSO review these learnings files for applicable insights:
+[list of 2-5 relevant learning file paths]
 
-Check if this learning applies to this plan:
+For each learning, read the full file and extract applicable insights.
 
----
-[full plan content]
----
-
-If relevant:
-- Explain specifically how it applies
-- Quote the key insight or solution
-- Suggest where/how to incorporate it
-
-If NOT relevant after deeper analysis:
-- Say 'Not applicable: [reason]'
-"
-```
-
-**Example filtering:**
-```
-# Found 15 learning files, plan is about "Laravel API caching"
-
-# SPAWN (likely relevant):
-docs/solutions/performance-issues/n-plus-one-queries.md      # tags: [eloquent] ✓
-docs/solutions/performance-issues/redis-cache-stampede.md    # tags: [caching, redis] ✓
-docs/solutions/configuration-fixes/redis-connection-pool.md  # tags: [redis] ✓
-
-# SKIP (clearly not applicable):
-docs/solutions/deployment-issues/heroku-memory-quota.md      # not about caching
-docs/solutions/frontend-issues/stimulus-race-condition.md    # plan is API, not frontend
-docs/solutions/authentication-issues/jwt-expiry.md           # plan has no auth
-```
-
-**Spawn sub-agents in PARALLEL for all filtered learnings.**
-
-**These learnings are institutional knowledge - applying them prevents repeating past mistakes.**
-
-### 4. Launch Per-Section Research Agents
-
-<thinking>
-For each major section in the plan, spawn dedicated sub-agents to research improvements. Use the Explore agent type for open-ended research.
-</thinking>
-
-**For each identified section, launch parallel research:**
-
-```
-Task Explore: "Research best practices, patterns, and real-world examples for: [section topic].
-Find:
+For the research, find:
 - Industry standards and conventions
 - Performance considerations
 - Common pitfalls and how to avoid them
-- Documentation and tutorials
-Return concrete, actionable recommendations."
+- Real-world implementation examples
+
+Write your COMPLETE findings to /tmp/deepen-plan/research-primary.md
+Print a 1-2 sentence summary to stdout."
 ```
 
-**Also use Context7 MCP for framework documentation:**
+**Agent B - Research for secondary concerns (if the plan has multiple distinct domains):**
+```
+Task Explore (run_in_background: true): "Research best practices for: [secondary plan concerns, e.g., UI/UX, security, testing].
 
-For any technologies/frameworks mentioned in the plan, query Context7:
+Cover these plan sections:
+[list of 2-3 related section summaries]
+
+Find concrete recommendations, code patterns, and edge cases.
+
+Write your COMPLETE findings to /tmp/deepen-plan/research-secondary.md
+Print a 1-2 sentence summary to stdout."
+```
+
+**Also use Context7 MCP for framework documentation (runs in orchestrator, no agent needed):**
+
+For any technologies/frameworks mentioned in the plan, query Context7 directly:
 ```
 mcp__plugin_compound-engineering_context7__resolve-library-id: Find library ID for [framework]
 mcp__plugin_compound-engineering_context7__query-docs: Query documentation for specific patterns
 ```
 
-**Use WebSearch for current best practices:**
-
-Search for recent (2025-2026) articles, blog posts, and documentation on topics in the plan.
-
-### 5. Discover and Run ALL Review Agents
+### 4. Run Targeted Review Agents (Budget: 2-3 agents)
 
 <thinking>
-Dynamically discover every available agent and run them ALL against the plan. Don't filter, don't skip, don't assume relevance. 40+ parallel agents is fine. Use everything available.
+Select the 2-3 most relevant review agents based on the plan's domain. Skip agents whose expertise doesn't overlap with the plan.
 </thinking>
 
-**Step 1: Discover ALL available agents from ALL sources**
+**Step 1: Discover available agents**
 
 ```bash
-# 1. Project-local agents (highest priority - project-specific)
+# 1. Project-local agents
 find .claude/agents -name "*.md" 2>/dev/null
 
-# 2. User's global agents (~/.claude/)
+# 2. User's global agents
 find ~/.claude/agents -name "*.md" 2>/dev/null
 
-# 3. compound-engineering plugin agents (all subdirectories)
-find ~/.claude/plugins/cache/*/compound-engineering/*/agents -name "*.md" 2>/dev/null
+# 3. compound-engineering plugin agents (review + research categories)
+find ~/.claude/plugins/cache/*/compound-engineering/*/agents/review -name "*.md" 2>/dev/null
+find ~/.claude/plugins/cache/*/compound-engineering/*/agents/research -name "*.md" 2>/dev/null
+find ~/.claude/plugins/cache/*/compound-engineering/*/agents/design -name "*.md" 2>/dev/null
 
-# 4. ALL other installed plugins - check every plugin for agents
+# 4. ALL other installed plugins
 find ~/.claude/plugins/cache -path "*/agents/*.md" 2>/dev/null
-
-# 5. Check installed_plugins.json to find all plugin locations
-cat ~/.claude/plugins/installed_plugins.json
-
-# 6. For local plugins (isLocal: true), check their source directories
-# Parse installed_plugins.json and find local plugin paths
 ```
-
-**Important:** Check EVERY source. Include agents from:
-- Project `.claude/agents/`
-- User's `~/.claude/agents/`
-- compound-engineering plugin (but SKIP workflow/ agents - only use review/, research/, design/, docs/)
-- ALL other installed plugins (agent-sdk-dev, frontend-design, etc.)
-- Any local plugins
 
 **For compound-engineering plugin specifically:**
-- USE: `agents/review/*` (all reviewers)
-- USE: `agents/research/*` (all researchers)
+- USE: `agents/review/*` (reviewers)
+- USE: `agents/research/*` (researchers)
 - USE: `agents/design/*` (design agents)
-- USE: `agents/docs/*` (documentation agents)
-- SKIP: `agents/workflow/*` (these are workflow orchestrators, not reviewers)
+- SKIP: `agents/workflow/*` (workflow orchestrators)
+- SKIP: `agents/docs/*` (not needed for plan deepening)
 
-**Step 2: For each discovered agent, read its description**
+**Step 2: Select the 2-3 most relevant review agents**
 
-Read the first few lines of each agent file to understand what it reviews/analyzes.
+Match agents to the plan's domain summary:
 
-**Step 3: Launch ALL agents in parallel**
+| Plan Domain | Best Review Agents |
+|---|---|
+| Laravel backend | taylor-otwell-reviewer, architecture-strategist |
+| Database/migrations | data-integrity-guardian, data-migration-expert |
+| Security/auth | security-sentinel |
+| Performance | performance-oracle |
+| Frontend/JS | julik-frontend-races-reviewer |
+| API design | architecture-strategist |
+| Agent/AI features | agent-native-reviewer |
+| General code quality | code-simplicity-reviewer, pattern-recognition-specialist |
 
-For EVERY agent discovered, launch a Task in parallel:
+Pick the 2-3 agents whose expertise best matches the plan. Skip the rest.
 
+**Step 3: Launch selected agents in parallel (background)**
+
+For each selected agent:
 ```
-Task [agent-name]: "Review this plan using your expertise. Apply all your checks and patterns. Plan content: [full plan content]"
+Task [agent-type] (run_in_background: true): "Review this plan using your expertise. Apply all your checks and patterns.
+
+Plan content:
+---
+[full plan content]
+---
+
+Write your COMPLETE review findings to /tmp/deepen-plan/review-[agent-name].md
+Print a 1-2 sentence summary to stdout."
 ```
 
-**CRITICAL RULES:**
-- Do NOT filter agents by "relevance" - run them ALL
-- Do NOT skip agents because they "might not apply" - let them decide
-- Launch ALL agents in a SINGLE message with multiple Task tool calls
-- 20, 30, 40 parallel agents is fine - use everything
-- Each agent may catch something others miss
-- The goal is MAXIMUM coverage, not efficiency
+**Launch all selected review agents in a SINGLE message with multiple Task tool calls.**
 
-**Step 4: Also discover and run research agents**
-
-Research agents (like `best-practices-researcher`, `framework-docs-researcher`, `git-history-analyzer`, `repo-research-analyst`) should also be run for relevant plan sections.
-
-### 6. Wait for ALL Agents and Synthesize Everything
+### 5. Wait for ALL Agents and Synthesize from Files
 
 <thinking>
-Wait for ALL parallel agents to complete - skills, research agents, review agents, everything. Then synthesize all findings into a comprehensive enhancement.
+All agents write to /tmp/deepen-plan/. Wait for them to finish using blocking TaskOutput, then read the files to synthesize.
 </thinking>
 
-**Collect outputs from ALL sources:**
+**Step 1: Wait for all background agents to complete**
 
-1. **Skill-based sub-agents** - Each skill's full output (code examples, patterns, recommendations)
-2. **Learnings/Solutions sub-agents** - Relevant documented learnings from /workflows:compound
-3. **Research agents** - Best practices, documentation, real-world examples
-4. **Review agents** - All feedback from every reviewer (architecture, security, performance, simplicity, etc.)
-5. **Context7 queries** - Framework documentation and patterns
-6. **Web searches** - Current best practices and articles
+For each spawned agent, use a single **blocking** `TaskOutput` call (do NOT poll with non-blocking calls):
+```
+TaskOutput(task_id=agent_task_id, block=true, timeout=300000)
+```
+
+**Step 2: Read all result files**
+
+```bash
+ls /tmp/deepen-plan/
+```
+
+Then read each result file:
+```
+Read: /tmp/deepen-plan/skill-taylor-otwell-style.md
+Read: /tmp/deepen-plan/research-primary.md
+Read: /tmp/deepen-plan/research-secondary.md
+Read: /tmp/deepen-plan/review-architecture-strategist.md
+... etc
+```
+
+**Step 3: Synthesize findings**
 
 **For each agent's findings, extract:**
 - [ ] Concrete recommendations (actionable items)
@@ -385,7 +328,7 @@ Wait for ALL parallel agents to complete - skills, research agents, review agent
 - [ ] Edge cases discovered (handling strategies)
 - [ ] Documentation links (references)
 - [ ] Skill-specific patterns (from matched skills)
-- [ ] Relevant learnings (past solutions that apply - prevent repeating mistakes)
+- [ ] Relevant learnings (past solutions that apply)
 
 **Deduplicate and prioritize:**
 - Merge similar recommendations from multiple agents
@@ -393,7 +336,7 @@ Wait for ALL parallel agents to complete - skills, research agents, review agent
 - Flag conflicting advice for human review
 - Group by plan section
 
-### 7. Enhance Plan Sections
+### 6. Enhance Plan Sections
 
 <thinking>
 Merge research findings back into the plan, adding depth without changing the original structure.
@@ -430,7 +373,7 @@ Merge research findings back into the plan, adding depth without changing the or
 - [Documentation URL 2]
 ```
 
-### 8. Add Enhancement Summary
+### 7. Add Enhancement Summary
 
 At the top of the plan, add a summary section:
 
@@ -439,7 +382,7 @@ At the top of the plan, add a summary section:
 
 **Deepened on:** [Date]
 **Sections enhanced:** [Count]
-**Research agents used:** [List]
+**Agents used:** [Count] ([list agent names])
 
 ### Key Improvements
 1. [Major improvement 1]
@@ -451,12 +394,17 @@ At the top of the plan, add a summary section:
 - [Important finding 2]
 ```
 
-### 9. Update Plan File
+### 8. Update Plan File
 
 **Write the enhanced plan:**
 - Preserve original filename
 - Add `-deepened` suffix if user prefers a new file
 - Update any timestamps or metadata
+
+**Clean up temp files:**
+```bash
+rm -rf /tmp/deepen-plan
+```
 
 ## Output Format
 
@@ -491,56 +439,5 @@ Based on selection:
 - **`/workflows:work`** → Call the /workflows:work command with the plan file path
 - **Deepen further** → Ask which sections need more research, then re-run those agents
 - **Revert** → Restore from git or backup
-
-## Example Enhancement
-
-**Before (from /workflows:plan):**
-```markdown
-## Technical Approach
-
-Use React Query for data fetching with optimistic updates.
-```
-
-**After (from /workflows:deepen-plan):**
-```markdown
-## Technical Approach
-
-Use React Query for data fetching with optimistic updates.
-
-### Research Insights
-
-**Best Practices:**
-- Configure `staleTime` and `cacheTime` based on data freshness requirements
-- Use `queryKey` factories for consistent cache invalidation
-- Implement error boundaries around query-dependent components
-
-**Performance Considerations:**
-- Enable `refetchOnWindowFocus: false` for stable data to reduce unnecessary requests
-- Use `select` option to transform and memoize data at query level
-- Consider `placeholderData` for instant perceived loading
-
-**Implementation Details:**
-```typescript
-// Recommended query configuration
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 2,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-```
-
-**Edge Cases:**
-- Handle race conditions with `cancelQueries` on component unmount
-- Implement retry logic for transient network failures
-- Consider offline support with `persistQueryClient`
-
-**References:**
-- https://tanstack.com/query/latest/docs/react/guides/optimistic-updates
-- https://tkdodo.eu/blog/practical-react-query
-```
 
 NEVER CODE! Just research and enhance the plan.
