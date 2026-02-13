@@ -2,23 +2,11 @@
 
 Laravel-specific knowledge for the [Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin) plugin. Provides 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development.
 
-## Prerequisites
-
-Install the upstream compound-engineering plugin first for workflow commands and generic agents:
-
-```bash
-claude /plugin install compound-engineering
-```
-
-Then install this companion plugin:
-
-```bash
-claude /plugin install laravel-compound-engineering
-```
-
 ## Quick Start
 
-Run `/laravel-setup` in your Laravel project to configure the upstream plugin's review workflows with Laravel-specific agents.
+Run `/laravel-setup` in your Laravel project to configure review workflows with Laravel-specific agents.
+
+> **Note:** This is a companion to the [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) plugin. Install that first for workflow commands.
 
 ## Agents
 

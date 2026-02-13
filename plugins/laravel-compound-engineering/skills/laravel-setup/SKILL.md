@@ -1,6 +1,6 @@
 ---
 name: laravel-setup
-description: This skill should be used to configure a Laravel project for use with the compound-engineering plugin's review workflows. Generates .claude/compound-engineering.local.md with Laravel-specific agent configuration.
+description: This skill should be used to configure a Laravel project for use with the compound-engineering plugin's review workflows. Generates compound-engineering.local.md with Laravel-specific agent configuration.
 user-invocable: true
 disable-model-invocation: true
 allowed-tools: Read, Write, Bash, Glob, Grep
@@ -10,23 +10,26 @@ allowed-tools: Read, Write, Bash, Glob, Grep
 
 Configure this Laravel project to use Laravel-specific review agents with the upstream compound-engineering plugin.
 
-## Prerequisites
+## Step 1: Check Existing Config
 
-Verify the upstream compound-engineering plugin is installed. Check for its agents directory:
+Read `compound-engineering.local.md` in the project root. If it exists, display current settings and use AskUserQuestion:
 
-```bash
-ls ~/.claude/plugins/compound-engineering/agents/ 2>/dev/null
+```
+question: "Settings file already exists. What would you like to do?"
+header: "Config"
+options:
+  - label: "Reconfigure"
+    description: "Overwrite with Laravel defaults"
+  - label: "View current"
+    description: "Show the file contents, then stop"
+  - label: "Cancel"
+    description: "Keep current settings"
 ```
 
-If not found, inform the user:
+If "View current": read and display the file, then stop.
+If "Cancel": stop.
 
-> The upstream **compound-engineering** plugin is required. Install it first:
-> ```
-> claude /plugin install compound-engineering
-> ```
-> Then run `/laravel-setup` again.
-
-## Detection
+## Step 2: Detect Laravel
 
 Confirm this is a Laravel project by checking for ANY of:
 - `artisan` file in the project root
@@ -34,30 +37,19 @@ Confirm this is a Laravel project by checking for ANY of:
 
 If neither is found, warn the user and ask whether to proceed anyway.
 
-## Configuration
+## Step 3: Write Config
 
-Create `.claude/compound-engineering.local.md` in the project root with this content:
+Write `compound-engineering.local.md` in the **project root** (not `.claude/`) with YAML frontmatter:
 
 ```markdown
-# Laravel Project Configuration
+---
+review_agents: [taylor-otwell-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint]
+plan_review_agents: [taylor-otwell-reviewer, code-simplicity-reviewer]
+---
 
-## Review Agents
+# Review Context
 
-Use these Laravel-specialized agents for code review workflows:
-
-review_agents:
-  - taylor-otwell-reviewer
-  - data-integrity-guardian
-  - data-migration-expert
-  - github-code-researcher
-  - lint
-
-plan_review_agents:
-  - taylor-otwell-reviewer
-
-## Review Context
-
-This is a Laravel project using the TALL stack (Tailwind CSS, Alpine.js, Livewire, Laravel).
+Laravel project using the TALL stack (Tailwind CSS, Alpine.js, Livewire, Laravel).
 
 Key conventions:
 - Follow Taylor Otwell's coding style (Actions pattern, thin controllers, expressive APIs)
@@ -67,17 +59,23 @@ Key conventions:
 - All code review should consider Laravel conventions and best practices
 ```
 
-## Post-Setup
+## Step 4: Confirm
 
-After creating the file, confirm success:
+```
+Saved to compound-engineering.local.md
 
-> Created `.claude/compound-engineering.local.md`
->
-> The upstream compound-engineering plugin will now use Laravel-specific agents for review workflows.
->
-> **Agents configured:**
-> - `taylor-otwell-reviewer` — Laravel code review (Taylor Otwell's perspective)
-> - `data-integrity-guardian` — Database migration and integrity review
-> - `data-migration-expert` — Data migration validation
-> - `github-code-researcher` — Open source pattern research
-> - `lint` — PHP/Blade linting with Laravel Pint
+Stack:        Laravel (TALL)
+Review depth: Thorough
+Agents:       5 configured
+              taylor-otwell-reviewer
+              data-integrity-guardian
+              data-migration-expert
+              github-code-researcher
+              lint
+
+Plan review:  taylor-otwell-reviewer
+              code-simplicity-reviewer
+
+Tip: Edit the "Review Context" section to add project-specific instructions.
+     Re-run /laravel-setup anytime to reconfigure.
+```

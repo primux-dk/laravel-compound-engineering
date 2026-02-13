@@ -4,25 +4,18 @@ Laravel-specific agents and skills for the [Compound Engineering Plugin](https:/
 
 ## Install
 
-First, install the upstream compound-engineering plugin for workflow commands and generic agents:
-
-```bash
-/plugin marketplace add https://github.com/EveryInc/compound-engineering-plugin
-/plugin install compound-engineering
-```
-
-Then add this marketplace and install the Laravel companion:
-
 ```bash
 /plugin marketplace add https://github.com/primux-dk/laravel-compound-engineering
 /plugin install laravel-compound-engineering
 ```
 
+> **Note:** This plugin is a companion to the [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) plugin. Install that first if you haven't already.
+
 ## Quick Start
 
 Run `/laravel-setup` in your Laravel project to configure the upstream plugin's review workflows with Laravel-specific agents.
 
-This generates `.claude/compound-engineering.local.md` pre-configured with:
+This generates `compound-engineering.local.md` in your project root, pre-configured with:
 - `taylor-otwell-reviewer` for code review
 - `data-integrity-guardian` and `data-migration-expert` for database changes
 - `github-code-researcher` for finding real-world patterns
