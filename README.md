@@ -1,135 +1,96 @@
 # Laravel Compound Engineering Plugin
 
-A Claude Code plugin for Laravel and PHP development, making each unit of engineering work easier than the last.
-
-This is a Laravel-focused fork of the [Compound Engineering Plugin](https://github.com/EveryInc/compound-engineering-plugin) by [Every Inc](https://every.to).
+Laravel-specific agents and skills for the [Compound Engineering Plugin](https://github.com/EveryInc/compound-engineering-plugin). Provides expert knowledge for Laravel, Livewire, Pest, and TALL stack development.
 
 ## Install
 
+First, install the upstream compound-engineering plugin for workflow commands and generic agents:
+
 ```bash
-/plugin marketplace add https://github.com/primux-dk/laravel-compound-engineering-plugin
+/plugin marketplace add https://github.com/EveryInc/compound-engineering-plugin
 /plugin install compound-engineering
 ```
 
-## Getting Started: Your First Feature
-
-Already have Claude Code installed and a Laravel project ready? Here's how to build your first feature from start to finish.
-
-### 1. Plan your feature
-
-Don't try to build everything at once. Pick one feature and describe it clearly:
-
-```
-/workflows:plan
-```
-
-Write out what you want to build. The plan command turns your description into a structured implementation plan with steps, files to create, and considerations.
-
-### 2. Review the plan
-
-Read through the generated plan. If something needs adjusting, use the `/deepen-plan` command to enrich it with research, or just ask Claude Code to change specific parts.
-
-### 3. Start building
-
-When the plan looks good, start the work:
-
-```
-/workflows:work
-```
-
-Ask it to create a **Git worktree** if you plan to keep working on other things in parallel. The work command picks up where the plan left off and executes it step by step.
-
-### 4. Review the code
-
-Once the work is done, review what was built:
-
-```
-/workflows:review
-```
-
-This runs multiple specialized review agents in parallel — checking architecture, security, performance, and code quality. If you want to track the findings, explicitly ask it to create todos from the review.
-
-### 5. Address findings
-
-Look at the todos from the review. Delete the ones you disagree with. Then use `/triage` to prioritize them, or run `/resolve_parallel` to let Claude Code fix them all in parallel.
-
-### 6. Create a PR and merge
-
-Ask Claude Code to create a pull request. Go to GitHub, skim the code one more time to build your understanding of the architecture, then merge it.
-
-### 7. Clean up and repeat
-
-Delete the worktree, and start the cycle again with your next feature.
-
-```
-Plan → Work → Review → Fix → PR → Merge → Repeat
-```
-
-### When you have a vague idea
-
-If you're not sure what the feature should look like yet, start with brainstorming instead:
-
-```
-/workflows:brainstorm
-```
-
-This walks you through questions to clarify what you actually need before committing to a plan. Once the brainstorm is clear, move to `/workflows:plan`.
-
-## Sync Personal Config
-
-Sync your personal Claude Code config (`~/.claude/`) to OpenCode or Codex:
+Then add this marketplace and install the Laravel companion:
 
 ```bash
-# Sync skills and MCP servers to OpenCode
-bunx @primux/laravel-compound-plugin sync --target opencode
-
-# Sync to Codex
-bunx @primux/laravel-compound-plugin sync --target codex
+/plugin marketplace add https://github.com/primux-dk/laravel-compound-engineering
+/plugin install laravel-compound-engineering
 ```
 
-This syncs:
-- Personal skills from `~/.claude/skills/` (as symlinks)
-- MCP servers from `~/.claude/settings.json`
+## Quick Start
 
-Skills are symlinked (not copied) so changes in Claude Code are reflected immediately.
+Run `/laravel-setup` in your Laravel project to configure the upstream plugin's review workflows with Laravel-specific agents.
 
-## Workflow Commands
+This generates `.claude/compound-engineering.local.md` pre-configured with:
+- `taylor-otwell-reviewer` for code review
+- `data-integrity-guardian` and `data-migration-expert` for database changes
+- `github-code-researcher` for finding real-world patterns
+- `lint` for PHP/Blade quality checks
 
-| Command | Purpose |
-|---------|---------|
-| `/workflows:brainstorm` | Explore a vague idea before committing to a plan |
-| `/workflows:plan` | Turn feature ideas into detailed implementation plans |
-| `/workflows:work` | Execute plans with worktrees and task tracking |
-| `/workflows:review` | Multi-agent code review before merging |
-| `/workflows:compound` | Document learnings to make future work easier |
+## What's Included
 
-Each cycle compounds: plans inform future plans, reviews catch more issues, patterns get documented.
+### 5 Agents
+
+| Agent | Purpose |
+|-------|---------|
+| `taylor-otwell-reviewer` | Laravel code review from Taylor Otwell's perspective |
+| `data-integrity-guardian` | Database migration and data integrity review |
+| `data-migration-expert` | Validate ID mappings, column renames, data transformations |
+| `github-code-researcher` | Search GitHub for open source implementations via `gh` CLI |
+| `lint` | PHP/Blade linting with Laravel Pint |
+
+### 8 Skills
+
+| Skill | Purpose |
+|-------|---------|
+| `taylor-otwell-style` | Taylor Otwell's PHP/Laravel coding patterns |
+| `laravel-livewire-patterns` | Livewire v4, Form Objects, Flux UI Pro |
+| `laravel-database-patterns` | Migrations, transactions, Eloquent optimization |
+| `pest-testing` | Pest 4 testing patterns |
+| `tailwindcss-v4` | Tailwind CSS v4 patterns |
+| `spatie-laravel-package-writer` | Spatie-style Laravel packages |
+| `web-interface-review` | Web UI accessibility and UX review |
+| `laravel-setup` | Configure upstream plugin for Laravel (`/laravel-setup`) |
+
+## How It Works
+
+This plugin provides **Laravel expertise** while the upstream compound-engineering plugin provides **workflows**. Use them together:
+
+```
+/workflows:plan    → Plans your feature (upstream)
+/workflows:work    → Builds it (upstream)
+/workflows:review  → Reviews with Laravel agents (upstream + this plugin)
+```
+
+The review agents from this plugin are automatically used when configured via `/laravel-setup`.
+
+## CLI Tool
+
+Convert Claude Code plugins to other AI assistant formats:
+
+```bash
+# Convert to OpenCode or Codex format
+bunx @primux/laravel-compound-plugin convert --target opencode
+bunx @primux/laravel-compound-plugin convert --target codex
+
+# Sync personal config
+bunx @primux/laravel-compound-plugin sync --target opencode
+```
 
 ## Philosophy
 
-This plugin is built on the **Compound Engineering** philosophy created by [Every Inc](https://every.to):
+Built on the **Compound Engineering** philosophy by [Every Inc](https://every.to):
 
 > **Each unit of engineering work should make subsequent units easier—not harder.**
 
-Traditional development accumulates technical debt. Every feature adds complexity. The codebase becomes harder to work with over time.
-
-Compound engineering inverts this. 80% is in planning and review, 20% is in execution:
-- Plan thoroughly before writing code
-- Review to catch issues and capture learnings
-- Codify knowledge so it's reusable
-- Keep quality high so future changes are easy
-
-Read more about the philosophy:
+Read more:
 - [Compound engineering: how Every codes with agents](https://every.to/chain-of-thought/compound-engineering-how-every-codes-with-agents)
 - [The story behind compounding engineering](https://every.to/source-code/my-ai-had-already-fixed-the-code-before-i-saw-it)
 
-## Learn More
-
-- [Full component reference](plugins/compound-engineering/README.md) - all agents, commands, skills
-
 ## Attribution
 
-This project is a fork of the [Compound Engineering Plugin](https://github.com/EveryInc/compound-engineering-plugin) created by [Kieran Klaassen](https://github.com/kieranklaassen) at [Every Inc](https://every.to). We're grateful for their pioneering work in AI-powered development workflows.
+This project builds on the [Compound Engineering Plugin](https://github.com/EveryInc/compound-engineering-plugin) created by [Kieran Klaassen](https://github.com/kieranklaassen) at [Every Inc](https://every.to).
 
 ## License
 
