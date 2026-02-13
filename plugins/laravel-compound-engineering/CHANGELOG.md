@@ -28,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Retained
 
-- **5 agents**: taylor-otwell-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint
+- **5 agents**: primux-laravel-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint
 - **8 skills**: taylor-otwell-style, laravel-livewire-patterns, laravel-database-patterns, pest-testing, tailwindcss-v4, spatie-laravel-package-writer, web-interface-review, laravel-setup (new)
 
 ### Migration
@@ -408,7 +408,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Updated routing to include i18n as option 8
 
 - Updated agents to use Laravel skills
-  - `taylor-otwell-reviewer` now includes: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
+  - `primux-laravel-reviewer` now includes: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
   - `data-integrity-guardian` now includes: `laravel-database-patterns`
   - `data-migration-expert` now includes: `laravel-database-patterns`
 
@@ -462,7 +462,7 @@ This release converts the plugin from Ruby/Rails to Laravel/PHP.
 - Replaced `andrew-kane-gem-writer` with `spatie-laravel-package-writer` - Laravel package development following Spatie patterns
 
 **Agents:**
-- Replaced `dhh-rails-reviewer` with `taylor-otwell-reviewer` - Laravel code review from Taylor Otwell's perspective
+- Replaced `dhh-rails-reviewer` with `primux-laravel-reviewer` - Laravel code review from Taylor Otwell's perspective
 - Updated `lint` agent - Now uses Laravel Pint, PHPStan, and composer audit (only lints changed files)
 - Updated `framework-docs-researcher` - Uses composer instead of bundler
 - Updated `performance-oracle` - Eloquent optimization, queue jobs
@@ -472,13 +472,13 @@ This release converts the plugin from Ruby/Rails to Laravel/PHP.
 - Updated `bug-reproduction-validator` - Laravel app references
 
 **Commands:**
-- Updated `review.md` - Removed rails-turbo-expert, uses taylor-otwell-reviewer
+- Updated `review.md` - Removed rails-turbo-expert, uses primux-laravel-reviewer
 - Updated `deepen-plan.md` - Simplified skill references (no paths needed)
 - Updated `compound.md`, `work.md`, `plan_review.md` - Laravel reviewer references
 
 ### Removed
 
-- `kieran-rails-reviewer` agent - taylor-otwell-reviewer covers Laravel
+- `kieran-rails-reviewer` agent - primux-laravel-reviewer covers Laravel
 - `ankane-readme-writer` agent - spatie-laravel-package-writer covers Laravel packages
 - `dhh-rails-style` skill directory
 - `rails-turbo-expert` reference

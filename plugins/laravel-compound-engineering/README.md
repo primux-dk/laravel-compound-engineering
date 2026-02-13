@@ -12,7 +12,7 @@ Run `/laravel-setup` in your Laravel project to configure review workflows with 
 
 | Agent | Category | Description |
 |-------|----------|-------------|
-| `taylor-otwell-reviewer` | Review | Laravel code review from Taylor Otwell's perspective |
+| `primux-laravel-reviewer` | Review | Laravel code review using Taylor Otwell's conventions |
 | `data-integrity-guardian` | Review | Database migration and data integrity review |
 | `data-migration-expert` | Review | Validate ID mappings, column renames, and data transformations |
 | `github-code-researcher` | Research | Search GitHub for open source implementations via `gh` CLI |
@@ -22,7 +22,7 @@ Run `/laravel-setup` in your Laravel project to configure review workflows with 
 
 These agents automatically load relevant skills:
 
-- **taylor-otwell-reviewer** injects: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
+- **primux-laravel-reviewer** injects: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
 - **data-integrity-guardian** injects: `laravel-database-patterns`
 - **data-migration-expert** injects: `laravel-database-patterns`
 

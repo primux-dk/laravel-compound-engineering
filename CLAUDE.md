@@ -248,7 +248,7 @@ Each plugin has its own plugin.json with metadata:
 3. Test agents and skills:
    ```bash
    claude /laravel-setup
-   claude agent taylor-otwell-reviewer "test message"
+   claude agent primux-laravel-reviewer "test message"
    ```
 
 ### Validate JSON

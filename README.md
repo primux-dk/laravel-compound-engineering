@@ -16,7 +16,7 @@ Laravel-specific agents and skills for the [Compound Engineering Plugin](https:/
 Run `/laravel-setup` in your Laravel project to configure the upstream plugin's review workflows with Laravel-specific agents.
 
 This generates `compound-engineering.local.md` in your project root, pre-configured with:
-- `taylor-otwell-reviewer` for code review
+- `primux-laravel-reviewer` for code review
 - `data-integrity-guardian` and `data-migration-expert` for database changes
 - `github-code-researcher` for finding real-world patterns
 - `lint` for PHP/Blade quality checks
@@ -27,7 +27,7 @@ This generates `compound-engineering.local.md` in your project root, pre-configu
 
 | Agent | Purpose |
 |-------|---------|
-| `taylor-otwell-reviewer` | Laravel code review from Taylor Otwell's perspective |
+| `primux-laravel-reviewer` | Laravel code review using Taylor Otwell's conventions |
 | `data-integrity-guardian` | Database migration and data integrity review |
 | `data-migration-expert` | Validate ID mappings, column renames, data transformations |
 | `github-code-researcher` | Search GitHub for open source implementations via `gh` CLI |

@@ -43,8 +43,8 @@ Write `compound-engineering.local.md` in the **project root** (not `.claude/`) w
 
 ```markdown
 ---
-review_agents: [taylor-otwell-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint]
-plan_review_agents: [taylor-otwell-reviewer, code-simplicity-reviewer]
+review_agents: [primux-laravel-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint]
+plan_review_agents: [primux-laravel-reviewer, code-simplicity-reviewer]
 ---
 
 # Review Context
@@ -67,13 +67,13 @@ Saved to compound-engineering.local.md
 Stack:        Laravel (TALL)
 Review depth: Thorough
 Agents:       5 configured
-              taylor-otwell-reviewer
+              primux-laravel-reviewer
               data-integrity-guardian
               data-migration-expert
               github-code-researcher
               lint
 
-Plan review:  taylor-otwell-reviewer
+Plan review:  primux-laravel-reviewer
               code-simplicity-reviewer
 
 Tip: Edit the "Review Context" section to add project-specific instructions.
