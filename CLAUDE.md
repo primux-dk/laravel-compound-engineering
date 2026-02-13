@@ -1,20 +1,21 @@
 # Laravel Compound Engineering Plugin
 
-This repository is a Claude Code plugin marketplace that distributes the `compound-engineering` plugin to developers building with AI-powered tools.
+This repository is a Claude Code plugin marketplace that distributes the `laravel-compound-engineering` plugin — a Laravel companion to the upstream [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) plugin.
 
 ## Repository Structure
 
 ```
 laravel-compound-engineering-plugin/
 ├── .claude-plugin/
-│   └── marketplace.json          # Marketplace catalog (lists available plugins)
+│   └── marketplace.json          # Marketplace catalog
+├── src/                          # CLI tool (convert/install plugins)
+├── tests/                        # CLI test suite
 └── plugins/
-    └── compound-engineering/     # The actual plugin
+    └── laravel-compound-engineering/
         ├── .claude-plugin/
         │   └── plugin.json       # Plugin metadata
-        ├── agents/               # Specialized AI agents
-        ├── commands/             # Slash commands
-        ├── skills/               # Skills
+        ├── agents/               # 5 Laravel-specific agents
+        ├── skills/               # 8 Laravel/TALL stack skills
         ├── README.md             # Plugin documentation
         └── CHANGELOG.md          # Version history
 ```
@@ -128,73 +129,55 @@ PreToolUse hook blocking .env edits → Always runs → Operation blocked
 
 ## Working with This Repository
 
-### Adding a New Plugin
+### Updating the Laravel Plugin
 
-1. Create plugin directory: `plugins/new-plugin-name/`
-2. Add plugin structure:
-   ```
-   plugins/new-plugin-name/
-   ├── .claude-plugin/plugin.json
-   ├── agents/
-   ├── commands/
-   └── README.md
-   ```
-3. Update `.claude-plugin/marketplace.json` to include the new plugin
-4. Test locally before committing
-
-### Updating the Compounding Engineering Plugin
-
-When agents, commands, or skills are added/removed, follow this checklist:
+When agents or skills are added/removed, follow this checklist:
 
 #### 1. Count all components accurately
 
 ```bash
 # Count agents
-ls plugins/compound-engineering/agents/*.md | wc -l
-
-# Count commands
-ls plugins/compound-engineering/commands/*.md | wc -l
+find plugins/laravel-compound-engineering/agents -name "*.md" | wc -l
 
 # Count skills
-ls -d plugins/compound-engineering/skills/*/ 2>/dev/null | wc -l
+ls -d plugins/laravel-compound-engineering/skills/*/ 2>/dev/null | wc -l
 ```
 
 #### 2. Update ALL description strings with correct counts
 
 The description appears in multiple places and must match everywhere:
 
-- [ ] `plugins/compound-engineering/.claude-plugin/plugin.json` → `description` field
+- [ ] `plugins/laravel-compound-engineering/.claude-plugin/plugin.json` → `description` field
 - [ ] `.claude-plugin/marketplace.json` → plugin `description` field
-- [ ] `plugins/compound-engineering/README.md` → intro paragraph
+- [ ] `plugins/laravel-compound-engineering/README.md` → intro paragraph
 
-Format: `"Includes X specialized agents, Y commands, and Z skill(s)."`
+Format: `"X agents and Y skills for Laravel, Livewire, Pest, and TALL stack development."`
 
 #### 3. Update version numbers
 
-When adding new functionality, bump the version in:
+Bump the version in:
 
-- [ ] `plugins/compound-engineering/.claude-plugin/plugin.json` → `version`
+- [ ] `plugins/laravel-compound-engineering/.claude-plugin/plugin.json` → `version`
 - [ ] `.claude-plugin/marketplace.json` → plugin `version`
 
 #### 4. Update documentation
 
-- [ ] `plugins/compound-engineering/README.md` → list all components
-- [ ] `plugins/compound-engineering/CHANGELOG.md` → document changes
-- [ ] `CLAUDE.md` → update structure diagram if needed
+- [ ] `plugins/laravel-compound-engineering/README.md` → list all components
+- [ ] `plugins/laravel-compound-engineering/CHANGELOG.md` → document changes
 
 #### 5. Validate JSON files
 
 ```bash
-cat .claude-plugin/marketplace.json | jq .
-cat plugins/compound-engineering/.claude-plugin/plugin.json | jq .
+jq . .claude-plugin/marketplace.json
+jq . plugins/laravel-compound-engineering/.claude-plugin/plugin.json
 ```
 
 #### 6. Verify before committing
 
 ```bash
-# Ensure counts in descriptions match actual files
-grep -o "Includes [0-9]* specialized agents" plugins/compound-engineering/.claude-plugin/plugin.json
-ls plugins/compound-engineering/agents/*.md | wc -l
+# Ensure counts match actual files
+find plugins/laravel-compound-engineering/agents -name "*.md" | wc -l
+ls -d plugins/laravel-compound-engineering/skills/*/ | wc -l
 ```
 
 ### Marketplace.json Structure
@@ -234,7 +217,7 @@ The marketplace.json follows the official Claude Code spec:
 
 ### Plugin.json Structure
 
-Each plugin has its own plugin.json with detailed metadata:
+Each plugin has its own plugin.json with metadata:
 
 ```json
 {
@@ -242,24 +225,7 @@ Each plugin has its own plugin.json with detailed metadata:
   "version": "1.0.0",
   "description": "Plugin description",
   "author": { ... },
-  "keywords": ["keyword1", "keyword2"],
-  "components": {
-    "agents": 15,
-    "commands": 6,
-    "hooks": 2
-  },
-  "agents": {
-    "category": [
-      {
-        "name": "agent-name",
-        "description": "Agent description",
-        "use_cases": ["use-case-1", "use-case-2"]
-      }
-    ]
-  },
-  "commands": {
-    "category": ["command1", "command2"]
-  }
+  "keywords": ["keyword1", "keyword2"]
 }
 ```
 
@@ -270,93 +236,55 @@ Each plugin has its own plugin.json with detailed metadata:
 1. Install the marketplace locally:
 
    ```bash
-   claude /plugin marketplace add /Users/yourusername/laravel-compound-engineering-plugin
+   claude /plugin marketplace add /path/to/laravel-compound-engineering-plugin
    ```
 
 2. Install the plugin:
 
    ```bash
-   claude /plugin install compound-engineering
+   claude /plugin install laravel-compound-engineering
    ```
 
-3. Test agents and commands:
+3. Test agents and skills:
    ```bash
-   claude /review
+   claude /laravel-setup
    claude agent taylor-otwell-reviewer "test message"
    ```
 
 ### Validate JSON
 
-Before committing, ensure JSON files are valid:
-
 ```bash
-cat .claude-plugin/marketplace.json | jq .
-cat plugins/compound-engineering/.claude-plugin/plugin.json | jq .
+jq . .claude-plugin/marketplace.json
+jq . plugins/laravel-compound-engineering/.claude-plugin/plugin.json
 ```
 
 ## Common Tasks
 
 ### Adding a New Agent
 
-1. Create `plugins/compound-engineering/agents/new-agent.md`
-2. Update plugin.json agent count and agent list
-3. Update README.md agent list
-4. Test with `claude agent new-agent "test"`
-
-### Adding a New Command
-
-> **Note:** As of Claude Code 2.1.3, commands and skills are unified. New "commands" should be created as skills with `disable-model-invocation: true` if they should only be manually invoked.
-
-**Legacy approach (commands/ directory):**
-1. Create `plugins/compound-engineering/commands/new-command.md`
-2. Update plugin.json command count and command list
-3. Update README.md command list
-4. Test with `claude /new-command`
-
-**Recommended approach (skills with manual-only flag):**
-1. Create `plugins/compound-engineering/skills/new-command.md` (or `skills/new-command/SKILL.md` for complex commands)
-2. Add frontmatter with `disable-model-invocation: true`
-3. Update counts and documentation
-4. Test with `claude /new-command`
+1. Create `plugins/laravel-compound-engineering/agents/<category>/new-agent.md`
+2. Update plugin.json description with new agent count
+3. Update marketplace.json description with new agent count
+4. Update README.md agent table
+5. Update CHANGELOG.md
+6. Test with `claude agent new-agent "test"`
 
 ### Adding a New Skill
 
-1. Create skill directory: `plugins/compound-engineering/skills/skill-name/`
-2. Add skill structure:
-   ```
-   skills/skill-name/
-   ├── SKILL.md           # Skill definition with frontmatter (name, description)
-   └── scripts/           # Supporting scripts (optional)
-   ```
+1. Create skill directory: `plugins/laravel-compound-engineering/skills/skill-name/`
+2. Add `SKILL.md` with frontmatter (`name`, `description`)
 3. Update plugin.json description with new skill count
 4. Update marketplace.json description with new skill count
-5. Update README.md with skill documentation
-6. Update CHANGELOG.md with the addition
+5. Update README.md skill table
+6. Update CHANGELOG.md
 7. Test with `claude skill skill-name`
-
-**Skill file format (SKILL.md):**
-```markdown
----
-name: skill-name
-description: Brief description of what the skill does
-
-# Optional visibility controls (see Architecture section above)
-user-invocable: true              # Show in / menu (default: true)
-disable-model-invocation: false   # Prevent auto-discovery (default: false)
-allowed-tools: Read, Grep, Glob   # Restrict available tools (optional)
----
-
-# Skill Title
-
-Detailed documentation...
-```
 
 ### Updating Tags/Keywords
 
-Tags should reflect the compounding engineering philosophy:
+Tags should reflect the Laravel focus:
 
-- Use: `ai-powered`, `compound-engineering`, `workflow-automation`, `knowledge-management`
-- Avoid: Framework-specific tags unless the plugin is framework-specific
+- Use: `laravel`, `php`, `livewire`, `pest`, `tall-stack`, `compound-engineering`
+- Avoid: Generic workflow tags (those belong to upstream)
 
 ## Commit Conventions
 
@@ -386,40 +314,22 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 
 _This section captures important learnings as we work on this repository._
 
-### 2024-11-22: Added gemini-imagegen skill and fixed component counts
+### 2026-02-13: v2.0.0 — Slimmed to Laravel-only companion
 
-Added the first skill to the plugin and discovered the component counts were wrong (said 15 agents, actually had 17). Created a comprehensive checklist for updating the plugin to prevent this in the future.
+Upstream compound-engineering now supports per-project agent configuration via `.local.md`. Removed all generic components (~88% of the plugin) and restructured as a focused Laravel supplement.
 
-**Learning:** Always count actual files before updating descriptions. The counts appear in multiple places (plugin.json, marketplace.json, README.md) and must all match. Use the verification commands in the checklist above.
+**Learning:** When upstream provides generic functionality, don't maintain a fork. Focus on domain-specific expertise (Laravel patterns, Taylor Otwell's style) and let upstream handle workflows.
 
 ### 2026-01-17: Claude Code 2.1.3 unified commands and skills
 
-Discovered that Claude Code 2.1.3 merged slash commands and skills into a single system. Key insights:
+Commands and skills are now the same mechanism — both handled by the Skill tool. Frontmatter controls visibility: `user-invocable` (show in / menu) and `disable-model-invocation` (prevent auto-discovery). Agents remain separate (isolated context). Hooks remain separate (deterministic enforcement).
 
-- **Commands and skills are now the same mechanism** - both handled by the Skill tool
-- **Frontmatter controls visibility**: `user-invocable` (show in / menu) and `disable-model-invocation` (prevent auto-discovery)
-- **Agents remain separate** - they provide isolated context, not same-conversation knowledge
-- **Hooks remain separate** - they provide deterministic enforcement
+**Learning:** When creating new commands, prefer creating them as skills with `disable-model-invocation: true` for manual-only behavior.
 
-The mental model:
-- "Should this knowledge be reusable?" → **Skill**
-- "Should this run in isolation?" → **Agent**
-- "Must this ALWAYS happen?" → **Hook**
+### 2024-11-22: Component counts must match across files
 
-**Learning:** When creating new commands, prefer creating them as skills with `disable-model-invocation: true` for manual-only behavior. This aligns with the unified architecture and gives more control over visibility.
-
-### 2024-11-22: Added gemini-imagegen skill and fixed component counts
-
-Added the first skill to the plugin and discovered the component counts were wrong (said 15 agents, actually had 17). Created a comprehensive checklist for updating the plugin to prevent this in the future.
-
-**Learning:** Always count actual files before updating descriptions. The counts appear in multiple places (plugin.json, marketplace.json, README.md) and must all match. Use the verification commands in the checklist above.
+The counts appear in multiple places (plugin.json, marketplace.json, README.md) and must all match. Always count actual files before updating descriptions.
 
 ### 2024-10-09: Simplified marketplace.json to match official spec
-
-The initial marketplace.json included many custom fields (downloads, stars, rating, categories, trending) that aren't part of the Claude Code specification. We simplified to only include:
-
-- Required: `name`, `owner`, `plugins`
-- Optional: `metadata` (with description and version)
-- Plugin entries: `name`, `description`, `version`, `author`, `homepage`, `tags`, `source`
 
 **Learning:** Stick to the official spec. Custom fields may confuse users or break compatibility with future versions.

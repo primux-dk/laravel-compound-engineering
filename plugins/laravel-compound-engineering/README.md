@@ -1,248 +1,70 @@
-# Compounding Engineering Plugin
+# Laravel Compound Engineering Plugin
 
-AI-powered development tools that get smarter with every use. Make each unit of engineering work easier than the last.
+Laravel-specific knowledge for the [Compound Engineering](https://github.com/EveryInc/compound-engineering-plugin) plugin. Provides 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development.
 
-## Components
+## Prerequisites
 
-| Component | Count |
-|-----------|-------|
-| Agents | 26 |
-| Commands | 26 |
-| Skills | 20 |
-| MCP Servers | 1 |
-
-## Agents
-
-Agents are organized into categories for easier discovery.
-
-### Review (13)
-
-| Agent | Description |
-|-------|-------------|
-| `agent-native-reviewer` | Verify features are agent-native (action + context parity) |
-| `architecture-strategist` | Analyze architectural decisions and compliance |
-| `code-simplicity-reviewer` | Final pass for simplicity and minimalism |
-| `data-integrity-guardian` | Database migrations and data integrity |
-| `data-migration-expert` | Validate ID mappings match production, check for swapped values |
-| `deployment-verification-agent` | Create Go/No-Go deployment checklists for risky data changes |
-| `taylor-otwell-reviewer` | Laravel review from Taylor Otwell's perspective |
-| `kieran-python-reviewer` | Python code review with strict conventions |
-| `kieran-typescript-reviewer` | TypeScript code review with strict conventions |
-| `pattern-recognition-specialist` | Analyze code for patterns and anti-patterns |
-| `performance-oracle` | Performance analysis and optimization |
-| `security-sentinel` | Security audits and vulnerability assessments |
-| `julik-frontend-races-reviewer` | Review JavaScript/Stimulus code for race conditions |
-
-### Research (5)
-
-| Agent | Description |
-|-------|-------------|
-| `best-practices-researcher` | Gather external best practices and examples |
-| `framework-docs-researcher` | Research framework documentation and best practices |
-| `git-history-analyzer` | Analyze git history and code evolution |
-| `github-code-researcher` | Search GitHub for open source implementations and patterns via `gh` CLI |
-| `repo-research-analyst` | Research repository structure and conventions |
-
-### Design (3)
-
-| Agent | Description |
-|-------|-------------|
-| `design-implementation-reviewer` | Verify UI implementations match Figma designs |
-| `design-iterator` | Iteratively refine UI through systematic design iterations |
-| `figma-design-sync` | Synchronize web implementations with Figma designs |
-
-### Workflow (4)
-
-| Agent | Description |
-|-------|-------------|
-| `bug-reproduction-validator` | Systematically reproduce and validate bug reports |
-| `lint` | Run linting and code quality checks on PHP and Blade files |
-| `pr-comment-resolver` | Address PR comments and implement fixes |
-| `spec-flow-analyzer` | Analyze user flows and identify gaps in specifications |
-
-## Commands
-
-### Workflow Commands
-
-Core workflow commands use `workflows:` prefix to avoid collisions with built-in commands:
-
-| Command | Description |
-|---------|-------------|
-| `/workflows:brainstorm` | Explore requirements and approaches before planning |
-| `/workflows:plan` | Create implementation plans |
-| `/workflows:review` | Run comprehensive code reviews |
-| `/workflows:work` | Execute work items systematically |
-| `/workflows:compound` | Document solved problems to compound team knowledge |
-
-### Utility Commands
-
-| Command | Description |
-|---------|-------------|
-| `/agent-native-audit` | Run comprehensive agent-native architecture review |
-| `/changelog` | Create engaging changelogs for recent merges |
-| `/create-agent-skill` | Create or edit Claude Code skills |
-| `/deepen-plan` | Enhance plans with parallel research agents for each section |
-| `/deploy-docs` | Validate and prepare documentation for GitHub Pages |
-| `/doctor` | Check plugin requirements and install missing dependencies |
-| `/feature-video` | Record video walkthroughs and add to PR description |
-| `/generate_command` | Generate new slash commands |
-| `/heal-skill` | Fix skill documentation issues |
-| `/lfg` | Full autonomous engineering workflow |
-| `/slfg` | Full autonomous workflow with swarm mode for parallel execution |
-| `/technical_review` | Multi-agent technical/architecture review in parallel |
-| `/release-docs` | Build and update the documentation site |
-| `/report-bug` | Report a bug in the plugin |
-| `/reproduce-bug` | Reproduce bugs using logs and console |
-| `/resolve_parallel` | Resolve TODO comments in parallel |
-| `/resolve_pr_parallel` | Resolve PR comments in parallel |
-| `/resolve_todo_parallel` | Resolve todos in parallel |
-| `/test-browser` | Run browser tests on PR-affected pages |
-| `/triage` | Triage and prioritize issues |
-| `/xcode-test` | Build and test iOS apps on simulator |
-
-## Skills
-
-### Architecture & Design
-
-| Skill | Description |
-|-------|-------------|
-| `agent-native-architecture` | Build AI agents using prompt-native architecture |
-
-### Laravel Patterns
-
-| Skill | Description |
-|-------|-------------|
-| `taylor-otwell-style` | Write Laravel/PHP code in Taylor Otwell's style (Actions, thin controllers, i18n) |
-| `laravel-livewire-patterns` | Livewire v4 components, Form Objects, and Flux UI Pro patterns |
-| `laravel-database-patterns` | Database migrations, transactions, Eloquent optimization |
-| `pest-testing` | Pest 4 testing: browser tests, architecture tests, datasets, smoke testing |
-| `tailwindcss-v4` | Tailwind CSS v4 patterns, CSS-first config, deprecated utility replacements |
-| `spatie-laravel-package-writer` | Write Laravel packages following Spatie's patterns |
-
-### Development Tools
-
-| Skill | Description |
-|-------|-------------|
-| `compound-docs` | Capture solved problems as categorized documentation |
-| `create-agent-skills` | Expert guidance for creating Claude Code skills |
-| `frontend-design` | Create production-grade frontend interfaces |
-| `skill-creator` | Guide for creating effective Claude Code skills |
-
-### Content & Workflow
-
-| Skill | Description |
-|-------|-------------|
-| `brainstorming` | Questioning techniques and YAGNI principles for requirements discovery |
-| `document-review` | Improve documents through structured self-review |
-| `file-todos` | File-based todo tracking system |
-| `git-worktree` | Manage Git worktrees for parallel development |
-
-### Multi-Agent Orchestration
-
-| Skill | Description |
-|-------|-------------|
-| `orchestrating-swarms` | Comprehensive guide to multi-agent swarm orchestration |
-
-### File Transfer
-
-| Skill | Description |
-|-------|-------------|
-| `rclone` | Upload files to S3, Cloudflare R2, Backblaze B2, and cloud storage |
-
-### Browser Automation
-
-| Skill | Description |
-|-------|-------------|
-| `agent-browser` | CLI-based browser automation using Vercel's agent-browser |
-
-### Code Review
-
-| Skill | Description |
-|-------|-------------|
-| `web-interface-review` | Review web UI code against Vercel's Web Interface Guidelines |
-
-### Image Generation
-
-| Skill | Description |
-|-------|-------------|
-| `gemini-imagegen` | Generate and edit images using Google's Gemini API |
-
-**gemini-imagegen features:**
-- Text-to-image generation
-- Image editing and manipulation
-- Multi-turn refinement
-- Multiple reference image composition (up to 14 images)
-
-**Requirements:**
-- `GEMINI_API_KEY` environment variable
-- Python packages: `google-genai`, `pillow`
-
-## MCP Servers
-
-| Server | Description |
-|--------|-------------|
-| `context7` | Framework documentation lookup via Context7 |
-
-### Context7
-
-**Tools provided:**
-- `resolve-library-id` - Find library ID for a framework/package
-- `get-library-docs` - Get documentation for a specific library
-
-Supports 100+ frameworks including Rails, React, Next.js, Vue, Django, Laravel, and more.
-
-MCP servers start automatically when the plugin is enabled.
-
-## Browser Automation
-
-This plugin uses **agent-browser CLI** for browser automation tasks. Install it globally:
-
-```bash
-npm install -g agent-browser
-agent-browser install  # Downloads Chromium
-```
-
-The `agent-browser` skill provides comprehensive documentation on usage.
-
-## Requirements
-
-### Optional Tools
-
-| Tool | Purpose | Installation |
-|------|---------|--------------|
-| `ast-grep` | Syntax-aware code pattern matching | `brew install ast-grep` |
-| `agent-browser` | Browser automation | `npm install -g agent-browser` |
-
-## Installation
+Install the upstream compound-engineering plugin first for workflow commands and generic agents:
 
 ```bash
 claude /plugin install compound-engineering
 ```
 
-## Known Issues
+Then install this companion plugin:
 
-### MCP Servers Not Auto-Loading
-
-**Issue:** The bundled Context7 MCP server may not load automatically when the plugin is installed.
-
-**Workaround:** Manually add it to your project's `.claude/settings.json`:
-
-```json
-{
-  "mcpServers": {
-    "context7": {
-      "type": "http",
-      "url": "https://mcp.context7.com/mcp"
-    }
-  }
-}
+```bash
+claude /plugin install laravel-compound-engineering
 ```
 
-Or add it globally in `~/.claude/settings.json` for all projects.
+## Quick Start
+
+Run `/laravel-setup` in your Laravel project to configure the upstream plugin's review workflows with Laravel-specific agents.
+
+## Agents
+
+| Agent | Category | Description |
+|-------|----------|-------------|
+| `taylor-otwell-reviewer` | Review | Laravel code review from Taylor Otwell's perspective |
+| `data-integrity-guardian` | Review | Database migration and data integrity review |
+| `data-migration-expert` | Review | Validate ID mappings, column renames, and data transformations |
+| `github-code-researcher` | Research | Search GitHub for open source implementations via `gh` CLI |
+| `lint` | Workflow | PHP/Blade linting with Laravel Pint |
+
+### Injected Skills
+
+These agents automatically load relevant skills:
+
+- **taylor-otwell-reviewer** injects: `taylor-otwell-style`, `laravel-livewire-patterns`, `laravel-database-patterns`
+- **data-integrity-guardian** injects: `laravel-database-patterns`
+- **data-migration-expert** injects: `laravel-database-patterns`
+
+## Skills
+
+### Laravel Patterns
+
+| Skill | Description |
+|-------|-------------|
+| `taylor-otwell-style` | Taylor Otwell's PHP/Laravel coding style (Actions, thin controllers, i18n) |
+| `laravel-livewire-patterns` | Livewire v4 components, Form Objects, Flux UI Pro patterns |
+| `laravel-database-patterns` | Database migrations, transactions, Eloquent optimization |
+| `pest-testing` | Pest 4 testing: browser tests, architecture tests, datasets |
+| `tailwindcss-v4` | Tailwind CSS v4 patterns and v3 migration guide |
+| `spatie-laravel-package-writer` | Laravel package development following Spatie patterns |
+
+### Tools
+
+| Skill | Description |
+|-------|-------------|
+| `web-interface-review` | Review web UI for accessibility, performance, and UX compliance |
+| `laravel-setup` | Configure upstream plugin to use Laravel agents (`/laravel-setup`) |
 
 ## Version History
 
 See [CHANGELOG.md](CHANGELOG.md) for detailed version history.
+
+## Attribution
+
+This plugin builds on the [Compound Engineering Plugin](https://github.com/EveryInc/compound-engineering-plugin) by Every Inc, created by Kieran Klaassen.
 
 ## License
 

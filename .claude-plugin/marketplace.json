@@ -5,20 +5,20 @@
     "url": "https://github.com/primux-dk"
   },
   "metadata": {
-    "description": "Laravel-focused Claude Code plugin marketplace, based on Every Inc's Compound Engineering",
+    "description": "Laravel-focused Claude Code plugin marketplace, companion to Every Inc's Compound Engineering",
     "version": "1.0.0"
   },
   "plugins": [
     {
       "name": "laravel-compound-engineering",
-      "description": "AI-powered development tools for Laravel and PHP. Make each unit of engineering work easier than the last. Includes 26 agents, 27 commands, and 20 skills.",
-      "version": "1.8.1",
+      "description": "Laravel-specific knowledge for Compound Engineering. 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development. Companion to compound-engineering plugin.",
+      "version": "2.0.0",
       "author": {
         "name": "Primux",
         "url": "https://github.com/primux-dk"
       },
       "homepage": "https://github.com/primux-dk/laravel-compound-engineering",
-      "tags": ["ai-powered", "compound-engineering", "workflow-automation", "code-review", "laravel", "php", "tall-stack"],
+      "tags": ["laravel", "php", "livewire", "pest", "tall-stack", "compound-engineering"],
       "source": "./plugins/laravel-compound-engineering"
     }
   ]

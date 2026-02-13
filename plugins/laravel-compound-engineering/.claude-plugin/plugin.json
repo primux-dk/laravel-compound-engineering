@@ -1,7 +1,7 @@
 {
   "name": "laravel-compound-engineering",
-  "version": "1.8.1",
-  "description": "AI-powered development tools. 26 agents, 27 commands, 20 skills, 1 MCP server for code review, research, design, and workflow automation.",
+  "version": "2.0.0",
+  "description": "Laravel-specific knowledge for Compound Engineering. 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development. Companion to compound-engineering plugin.",
   "author": {
     "name": "Kristian Primdal",
     "url": "https://github.com/primux-dk"
@@ -15,16 +15,8 @@
     "livewire",
     "pest",
     "tall-stack",
-    "ai-powered",
-    "compound-engineering",
-    "workflow-automation",
-    "code-review",
-    "knowledge-management"
-  ],
-  "mcpServers": {
-    "context7": {
-      "type": "http",
-      "url": "https://mcp.context7.com/mcp"
-    }
-  }
+    "eloquent",
+    "taylor-otwell",
+    "compound-engineering"
+  ]
 }

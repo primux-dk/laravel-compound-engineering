@@ -5,6 +5,44 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2026-02-13
+
+### Changed
+
+- **Restructured as Laravel companion plugin** — Users install upstream [compound-engineering](https://github.com/EveryInc/compound-engineering-plugin) for generic workflows, this plugin provides Laravel expertise only
+
+### Added
+
+- **`laravel-setup` skill** — Run `/laravel-setup` to generate `.claude/compound-engineering.local.md` pre-configured with Laravel agents for the upstream plugin's review workflows
+
+### Removed
+
+- **All 27 commands** — Now provided by upstream compound-engineering plugin (`/workflows:plan`, `/workflows:review`, `/lfg`, etc.)
+- **21 generic agents** — Now provided by upstream:
+  - Design (3): figma-design-sync, design-implementation-reviewer, design-iterator
+  - Research (5): best-practices-researcher, framework-docs-researcher, git-history-analyzer, learnings-researcher, repo-research-analyst
+  - Review (10): agent-native-reviewer, architecture-strategist, code-simplicity-reviewer, deployment-verification-agent, julik-frontend-races-reviewer, kieran-python-reviewer, kieran-typescript-reviewer, pattern-recognition-specialist, performance-oracle, security-sentinel
+  - Workflow (3): bug-reproduction-validator, pr-comment-resolver, spec-flow-analyzer
+- **13 generic skills** — Now provided by upstream: agent-browser, agent-native-architecture, brainstorming, compound-docs, create-agent-skills, document-review, file-todos, frontend-design, gemini-imagegen, git-worktree, orchestrating-swarms, rclone, skill-creator
+- **Context7 MCP server** — Removed from plugin.json; add manually if needed
+
+### Retained
+
+- **5 agents**: taylor-otwell-reviewer, data-integrity-guardian, data-migration-expert, github-code-researcher, lint
+- **8 skills**: taylor-otwell-style, laravel-livewire-patterns, laravel-database-patterns, pest-testing, tailwindcss-v4, spatie-laravel-package-writer, web-interface-review, laravel-setup (new)
+
+### Migration
+
+1. Install upstream: `claude /plugin install compound-engineering`
+2. Update this plugin: `claude /plugin update laravel-compound-engineering`
+3. Run `/laravel-setup` in your Laravel projects to configure review agents
+
+### Summary
+
+- 5 agents, 0 commands, 8 skills
+
+---
+
 ## [1.8.1] - 2026-02-10
 
 ### Fixed
