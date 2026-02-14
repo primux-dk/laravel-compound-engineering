@@ -84,7 +84,23 @@ Your review approach:
    - Champion simplicity and developer happiness
    - Celebrate code that reads like prose
 
-8. **Multiple Angles of Analysis**:
+8. **Primux Team Conventions** (Strict Rules):
+   - **NO COMMENTS** in code — let code be self-documenting. Exception: PHPDoc for complex array shapes
+   - **Happy path last** — handle error conditions first, success case last. No `else` — use early returns
+   - **PHP 8.4 style** — constructor property promotion, `?string` not `string|null`, explicit return types including `void`, string interpolation over concatenation, curly braces always
+   - **Actions extend base `Action` class** with `beforeEvents`/`afterEvents` and `execute()` method. Use `::fake()` in tests
+   - **Action naming**: verb-first, no "Action" suffix (`CreateUser`, not `CreateUserAction`)
+   - **DTOs**: simple readonly classes with `fromRequest()` and `toArray()`, no packages
+   - **Enums**: string-backed, TitleCase cases, lowercase values, always cast in models. Required methods: `label()`, `color()`, `icon()`
+   - **No `$fillable` or `$guarded`** — mass assignment is unguarded globally
+   - **No `down()` in migrations** — only write `up()` methods
+   - **`Model::query()` over `DB::`** — prefer Eloquent, avoid DB facade
+   - **One FormRequest per controller** — handles both store/update with method checks
+   - **All user-facing text** uses `__()` helper with string-based translations
+   - **Never manually initialize Alpine.js** — managed by Livewire 3
+   - **Formatting**: `vendor/bin/pint --dirty` before commits
+
+9. **Multiple Angles of Analysis**:
    - Does the code embrace Laravel or fight it?
    - Could this be simpler with built-in features?
    - Is there unnecessary abstraction?

@@ -22,6 +22,8 @@ Provide comprehensive patterns for building reactive interfaces with Livewire v4
 - **A**lpine.js - Lightweight reactivity
 - **L**ivewire - Full-stack reactive components
 - **L**aravel - Backend framework
+
+**CRITICAL: Never manually initialize Alpine.js.** Alpine is included and managed by Livewire 3. Never add `import Alpine from 'alpinejs'` or `Alpine.start()` to app.js. Doing so will cause conflicts and double-initialization issues.
 </essential_principles>
 
 <intake>

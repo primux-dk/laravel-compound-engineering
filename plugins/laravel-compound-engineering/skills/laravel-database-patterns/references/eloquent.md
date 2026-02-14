@@ -2,6 +2,10 @@
 
 <core_principle>
 **Eloquent models are expressive, not bloated.** Models should have rich public APIs with scopes, relationships, and accessors - but delegate heavy business logic to Actions.
+
+**Mass assignment is unguarded.** Models do NOT have `$fillable` or `$guarded`. Mass assignment is unguarded globally in `AppServiceProvider`. Never add `$fillable` or `$guarded` to models.
+
+**Use `Model::query()` over `DB::`** — always prefer Eloquent models and relationships. Avoid `DB::` facade for queries.
 </core_principle>
 
 <scopes>

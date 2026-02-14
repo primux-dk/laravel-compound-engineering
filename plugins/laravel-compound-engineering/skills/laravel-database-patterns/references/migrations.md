@@ -48,15 +48,11 @@ return new class extends Migration
         });
     }
 
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
-    }
 };
 ```
 
 **Best Practices:**
-1. Always make migrations reversible with `down()`
+1. **Only write `up()` methods** — never include `down()`
 2. Add indexes for foreign keys and commonly queried columns
 3. Use appropriate column types
 4. Set sensible defaults

@@ -59,6 +59,7 @@ What are you working on?
 7. **Packages & Dependencies** - What to use vs build
 8. **Internationalization** - Translations, localization, JSON lang files
 9. **Code Review** - Review code against Taylor's style
+10. **Primux Conventions** - Team-specific rules (no comments, happy path last, enums, DTOs)
 
 **Specify a number or describe your task.**
 </intake>
@@ -75,6 +76,7 @@ What are you working on?
 | 7, "package", "dependency", "library" | [packages.md](./references/packages.md) |
 | 8, "i18n", "translation", "localization" | [i18n.md](./references/i18n.md) |
 | 9, "review" | Read all references, then review code |
+| 10, "primux", "convention", "team" | [primux-conventions.md](./references/primux-conventions.md) |
 
 **After reading relevant references, apply patterns to the user's code.**
 </routing>
@@ -229,6 +231,7 @@ All detailed patterns in `references/`:
 | [testing.md](./references/testing.md) | PEST, factories, feature tests, mocking, database testing |
 | [packages.md](./references/packages.md) | What Taylor uses, decision framework, Spatie packages |
 | [i18n.md](./references/i18n.md) | Translations, localization, JSON lang files, date formatting |
+| [primux-conventions.md](./references/primux-conventions.md) | Team conventions: no comments, happy path last, PHP 8.4, Actions with events, DTOs, enums, mass assignment unguarded, no down() |
 </reference_index>
 
 <success_criteria>
@@ -243,6 +246,10 @@ Code follows Taylor's style when:
 - Embraces Laravel conventions over "clever" solutions
 - Database transactions wrap related operations
 - Tailwind CSS for styling
+- No comments in code (self-documenting through naming)
+- Happy path last with early returns (no else)
+- Enums are string-backed with `label()`, `color()`, `icon()` methods
+- Actions extend base Action class with event support
 </success_criteria>
 
 <credits>

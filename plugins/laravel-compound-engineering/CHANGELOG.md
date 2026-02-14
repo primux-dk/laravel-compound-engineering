@@ -5,6 +5,38 @@ All notable changes to the compound-engineering plugin will be documented in thi
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.1.0] - 2026-02-13
+
+### Added
+
+- **Primux team conventions** — New `primux-conventions.md` reference in `taylor-otwell-style` skill capturing team-specific rules:
+  - No comments in code (self-documenting through naming)
+  - Happy path last with early returns (no `else`)
+  - PHP 8.4 style (constructor promotion, `?string`, explicit return types, string interpolation)
+  - Base Action class with `beforeEvents`/`afterEvents` and `execute()` method
+  - Action naming: verb-first, no "Action" suffix
+  - Simple readonly DTOs with `fromRequest()` and `toArray()`
+  - String-backed enums with TitleCase cases and `label()`, `color()`, `icon()` methods
+  - One FormRequest per controller (handles store/update via method checks)
+  - All user-facing text via `__()` helper
+  - File naming conventions for Actions, Events, Listeners, Commands, Mailables, Enums
+
+### Changed
+
+- **`primux-laravel-reviewer` agent** — Added Primux team convention checks (no comments, happy path last, enum patterns, unguarded mass assignment, no `down()`, `Model::query()` over `DB::`, Alpine.js warning, `pint --dirty`)
+- **`laravel-database-patterns` skill** — Added: no `down()` in migrations, mass assignment unguarded (no `$fillable`/`$guarded`), `Model::query()` over `DB::` facade
+- **`laravel-database-patterns` references** — Updated `migrations.md` (removed `down()` examples) and `eloquent.md` (added unguarded mass assignment, `Model::query()` guidance)
+- **`pest-testing` skill** — Rewrote "Running Tests" section with workflow-based approach: always prefix `APP_ENV=testing`, start with `--parallel --compact`, narrow down with `--bail`, `--retry`, `--filter`. Added full CLI flags reference table (12 flags) and common combinations
+- **`lint` agent** — Simplified to use `vendor/bin/pint --dirty` (auto-detects changed files)
+- **`laravel-livewire-patterns` skill** — Added CRITICAL Alpine.js warning (never manually initialize)
+- **`taylor-otwell-style` skill** — Added Primux conventions to routing table, reference index, and success criteria
+
+### Summary
+
+- 5 agents, 0 commands, 8 skills
+
+---
+
 ## [2.0.0] - 2026-02-13
 
 ### Changed

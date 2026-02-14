@@ -21,8 +21,10 @@ Provide comprehensive patterns for testing Laravel applications with Pest 4, inc
 **Taylor's approach to testing:**
 - High-level feature tests that cover real user flows
 - Use factories extensively
-- Test the happy path first, then edge cases
+- Test the happy path first, then 1-2 critical edge cases
 - Keep tests readable — they're documentation
+- **100% coverage goal** — run coverage with: `herd coverage ./vendor/bin/pest --coverage`
+- Use Pest v4 syntax: `test()`, `it()`, `expect()`, `describe()`
 </essential_principles>
 
 <intake>
@@ -50,15 +52,65 @@ php artisan make:test CalculatorTest --pest --unit
 
 ## Running Tests
 
+**IMPORTANT:** Always prefix with `APP_ENV=testing` to ensure the correct environment. Claude Code and other tools may set their own `APP_ENV` which overrides `.env.testing`. The explicit prefix guarantees tests run against the testing database and config.
+
+### Workflow: Start Fast, Narrow Down on Failure
+
+**Step 1 — Run everything in parallel:**
 ```bash
-# Run all tests
-php artisan test --compact
+APP_ENV=testing ./vendor/bin/pest --parallel --compact
+```
 
-# Run with filter
-php artisan test --compact --filter=testName
+**Step 2 — If failures, stop on first error to isolate:**
+```bash
+APP_ENV=testing ./vendor/bin/pest --bail
+```
 
-# Run specific file
-php artisan test --compact tests/Feature/UserTest.php
+**Step 3 — Re-run only the previously failed tests:**
+```bash
+APP_ENV=testing ./vendor/bin/pest --retry
+```
+
+**Step 4 — Filter to a specific test or file:**
+```bash
+APP_ENV=testing ./vendor/bin/pest --filter="test description"
+APP_ENV=testing ./vendor/bin/pest tests/Feature/UserTest.php
+```
+
+### CLI Flags Reference
+
+| Flag | Purpose |
+|------|---------|
+| `--parallel` | Run tests concurrently across CPU cores (fastest full run) |
+| `--parallel --processes=8` | Parallel with explicit process count |
+| `--bail` | Stop on first failure or error (isolate problems fast) |
+| `--retry` | Re-run previously failed tests first |
+| `--dirty` | Only run tests with uncommitted git changes |
+| `--filter="name"` | Run tests matching a regex pattern |
+| `--group=integration` | Run tests in a specific group |
+| `--exclude-group=browser` | Skip tests in a specific group |
+| `--compact` | Minimal output — only show failures |
+| `--profile` | Show slowest tests for optimization |
+| `--coverage` | Generate code coverage report (requires Xdebug/PCOV) |
+| `--todo` | List all `todo()` tests |
+
+### Common Combinations
+
+```bash
+# Fast development loop — only changed tests
+APP_ENV=testing ./vendor/bin/pest --dirty
+
+# Full CI run with parallel and compact output
+APP_ENV=testing ./vendor/bin/pest --parallel --compact
+
+# Debug a specific failure
+APP_ENV=testing ./vendor/bin/pest --bail --filter="creates user"
+
+# Find slow tests to optimize
+APP_ENV=testing ./vendor/bin/pest --profile
+
+# Coverage report (with herd)
+APP_ENV=testing herd coverage ./vendor/bin/pest --coverage
 ```
 
 ## Basic Test Structure

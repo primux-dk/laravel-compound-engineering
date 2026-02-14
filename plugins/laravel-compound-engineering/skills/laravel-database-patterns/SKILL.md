@@ -10,9 +10,12 @@ Provide comprehensive patterns for database operations in Laravel, including mig
 <essential_principles>
 ## Core Philosophy
 
-**Database operations must be safe, performant, and reversible.**
+**Database operations must be safe, performant, and forward-only.**
 
 - **Migrations are immutable** - Never modify migrations once run in production
+- **No `down()` methods** - Only write `up()` methods in migrations. Never include `down()`
+- **Mass assignment unguarded** - Models do NOT use `$fillable` or `$guarded`. Mass assignment is unguarded globally in `AppServiceProvider`
+- **`Model::query()` over `DB::`** - Use Eloquent models and relationships. Avoid `DB::` facade for queries
 - **Transactions for integrity** - Wrap related operations to ensure all-or-nothing
 - **Eager loading by default** - Prevent N+1 queries with `with()` and `withCount()`
 - **Index strategically** - Index foreign keys and WHERE clause columns
@@ -64,11 +67,6 @@ return new class extends Migration
 
             $table->index('email');
         });
-    }
-
-    public function down(): void
-    {
-        Schema::dropIfExists('users');
     }
 };
 ```
@@ -161,7 +159,9 @@ All detailed patterns in `references/`:
 
 <success_criteria>
 Database code follows patterns when:
-- Migrations are reversible with proper `down()` methods
+- Migrations only have `up()` methods — no `down()` methods
+- Models have no `$fillable` or `$guarded` — mass assignment is unguarded
+- Queries use `Model::query()` — not `DB::` facade
 - Foreign keys and queried columns are indexed
 - Related operations wrapped in transactions
 - No N+1 queries (eager loading used)
