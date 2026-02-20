@@ -1,6 +1,6 @@
 {
   "name": "laravel-compound-engineering",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Laravel-specific knowledge for Compound Engineering. 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development. Companion to compound-engineering plugin.",
   "author": {
     "name": "Kristian Primdal",

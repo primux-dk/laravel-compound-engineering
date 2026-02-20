@@ -1,6 +1,6 @@
 ---
 name: laravel-setup
-description: This skill should be used to configure a Laravel project for use with the compound-engineering plugin's review workflows. Generates compound-engineering.local.md with Laravel-specific agent configuration.
+description: This skill should be used to configure a Laravel project for use with the compound-engineering plugin's review workflows. Generates .claude/compound-engineering.local.md with Laravel-specific agent configuration.
 user-invocable: true
 disable-model-invocation: true
 allowed-tools: Read, Write, Bash, Glob, Grep
@@ -12,7 +12,7 @@ Configure this Laravel project to use Laravel-specific review agents with the up
 
 ## Step 1: Check Existing Config
 
-Read `compound-engineering.local.md` in the project root. If it exists, display current settings and use AskUserQuestion:
+Read `.claude/compound-engineering.local.md` in the project root. If it exists, display current settings and use AskUserQuestion:
 
 ```
 question: "Settings file already exists. What would you like to do?"
@@ -39,7 +39,7 @@ If neither is found, warn the user and ask whether to proceed anyway.
 
 ## Step 3: Write Config
 
-Write `compound-engineering.local.md` in the **project root** (not `.claude/`) with YAML frontmatter:
+Write `.claude/compound-engineering.local.md` with YAML frontmatter:
 
 ```markdown
 ---
@@ -62,7 +62,7 @@ Key conventions:
 ## Step 4: Confirm
 
 ```
-Saved to compound-engineering.local.md
+Saved to .claude/compound-engineering.local.md
 
 Stack:        Laravel (TALL)
 Review depth: Thorough

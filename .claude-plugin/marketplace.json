@@ -12,7 +12,7 @@
     {
       "name": "laravel-compound-engineering",
       "description": "Laravel-specific knowledge for Compound Engineering. 5 agents and 8 skills for Laravel, Livewire, Pest, and TALL stack development. Companion to compound-engineering plugin.",
-      "version": "2.1.0",
+      "version": "2.1.1",
       "author": {
         "name": "Primux",
         "url": "https://github.com/primux-dk"
